@@ -1,24 +1,23 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "sedehi/laravel-starter-kit",
+    "description": "This is my package laravel-starter-kit",
     "keywords": [
-        ":vendor_name",
+        "sedehi",
         "laravel",
-        ":package_slug"
+        "laravel-starter-kit"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/sedehi/laravel-starter-kit",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Navid Sedehi",
+            "email": "navid.sedehi@gmail.com",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": "^8.1",
-        "spatie/laravel-package-tools": "^1.13.0",
-        "illuminate/contracts": "^9.0"
+        "php": "^7.4|^8.0",
+        "illuminate/support": "^8.0|^9.0"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
@@ -35,13 +34,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
+            "Sedehi\\LaravelStarterKit\\": "src",
+            "Sedehi\\LaravelStarterKit\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "Sedehi\\LaravelStarterKit\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -60,10 +59,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Sedehi\\LaravelStarterKit\\LaravelStarterKitServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "LaravelStarterKit": "Sedehi\\LaravelStarterKit\\Facades\\LaravelStarterKit"
             }
         }
     },
