@@ -11,7 +11,7 @@ class Composer extends \Illuminate\Support\Composer
         $this->getProcess($command)->run(function ($type, $data) {
             echo $data;
         }, [
-            'COMPOSER_HOME' => '$HOME/.config/composer'
+            'COMPOSER_HOME' => '$HOME/.config/composer',
         ]);
     }
 }
