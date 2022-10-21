@@ -1,0 +1,33 @@
+@extends('vendor.section.master')
+@section('content')
+    <div class="row gap-20 pos-r">
+        <div class="col-md-12">
+            <div class="bgc-white p-20 bd">
+                <div class="mT-30">
+                    <form action="{{ action([\App\Http\Controllers\User\Controllers\Admin\ChangePasswordController::class,'change']) }}" method="post">
+                        @csrf
+                        <div class="row">
+                            <div class="form-group col-md-5">
+                                <lable for="old_password">@lang('validation.attributes.current_password')</lable>
+                                <input type="password" name="old_password" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-5">
+                                <lable for="password">@lang('validation.attributes.password')</lable>
+                                <input type="password" name="password" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-5">
+                                <lable for="password_confirmation">@lang('validation.attributes.password_confirmation')</lable>
+                                <input type="password" name="password_confirmation" class="form-control">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">@lang('admin.submit')</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

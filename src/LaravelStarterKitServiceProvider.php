@@ -4,6 +4,7 @@ namespace Sedehi\LaravelStarterKit;
 
 use Illuminate\Support\ServiceProvider;
 use Sedehi\LaravelStarterKit\Commands\InstallCommand;
+use Sedehi\LaravelStarterKit\Commands\PublishUserSectionCommand;
 
 class LaravelStarterKitServiceProvider extends ServiceProvider
 {
@@ -41,7 +42,10 @@ class LaravelStarterKitServiceProvider extends ServiceProvider
             ], 'lang');*/
 
             // Registering package commands.
-            $this->commands([InstallCommand::class]);
+            $this->commands([
+                InstallCommand::class,
+                PublishUserSectionCommand::class
+            ]);
         }
     }
 

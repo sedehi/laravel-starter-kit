@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Http\Controllers\User\database\seeds;
+
+use Illuminate\Database\Seeder;
+use App\Http\Controllers\User\Models\Admin;
+
+class AdminTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $item             = new Admin();
+        $item->first_name = 'admin';
+        $item->last_name  = '';
+        $item->email      = 'admin@admin.com';
+        $item->password   = bcrypt('12345678');
+        $item->save();
+    }
+}

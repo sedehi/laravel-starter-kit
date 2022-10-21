@@ -1,0 +1,44 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+use App\Http\Controllers\User\database\seeds\AdminTableSeeder;
+
+class CreateAdminsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('admins', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('first_name')->nullable()->index();
+            $table->string('last_name')->nullable()->index();
+            $table->string('email')->nullable()->index();
+            $table->string('password')->nullable();
+            $table->rememberToken();
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
+        Artisan::call('db:seed', [
+            '--class' => AdminTableSeeder::class,
+            '--force' => true,
+        ]);
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('admins');
+    }
+}
