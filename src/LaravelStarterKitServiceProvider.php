@@ -44,7 +44,7 @@ class LaravelStarterKitServiceProvider extends ServiceProvider
             // Registering package commands.
             $this->commands([
                 InstallCommand::class,
-                PublishUserSectionCommand::class
+                PublishUserSectionCommand::class,
             ]);
         }
     }
