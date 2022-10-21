@@ -6,7 +6,6 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Sedehi\LaravelStarterKit\Composer;
 
-
 class InstallCommand extends Command
 {
     /**
