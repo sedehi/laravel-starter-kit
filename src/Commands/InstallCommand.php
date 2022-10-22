@@ -50,8 +50,6 @@ class InstallCommand extends Command
         $this->callSilently('starter-install:publish-user-section');
 
         $this->makeAdminRouteAndController();
-
-
     }
 
     /**
@@ -59,10 +57,10 @@ class InstallCommand extends Command
      */
     private function makeAdminRouteAndController(): void
     {
-        if (!File::exists(base_path('routes/admin.php'))) {
+        if (! File::exists(base_path('routes/admin.php'))) {
             File::copy(__DIR__.'/../stubs/routes/admin.stub', base_path('routes/admin.php'));
         }
-        if (!File::exists(app_path('Http/Controllers/AdminController.php'))) {
+        if (! File::exists(app_path('Http/Controllers/AdminController.php'))) {
             File::copy(__DIR__.'/../stubs/controllers/AdminController.stub', app_path('Http/Controllers/AdminController.php'));
         }
     }

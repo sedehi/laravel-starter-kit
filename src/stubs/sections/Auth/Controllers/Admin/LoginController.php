@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Auth\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Controller;
 
 class LoginController extends Controller
 {
@@ -15,7 +15,7 @@ class LoginController extends Controller
     public function login()
     {
         $credentials = request()->only(['email', 'password']);
-        $login       = auth()->attempt($credentials);
+        $login = auth()->attempt($credentials);
         if ($login) {
             request()->session()->regenerate();
             if (request()->has('return')) {

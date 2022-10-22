@@ -157,7 +157,7 @@ class MakeController extends ControllerMakeCommand implements SectionName, Contr
         if (! class_exists($modelClass)) {
             if ($this->confirm("A {$modelClass} model does not exist. Do you want to generate it?", true)) {
                 $this->call('make:model', [
-                    'name'      => $modelClass,
+                    'name' => $modelClass,
                     '--section' => $this->option('section'),
                 ]);
             }
@@ -182,7 +182,7 @@ class MakeController extends ControllerMakeCommand implements SectionName, Contr
 
         return array_merge($replace, [
             'DummySectionNormal' => $section,
-            'DummySectionLower'  => strtolower($section),
+            'DummySectionLower' => strtolower($section),
         ]);
     }
 
@@ -222,12 +222,12 @@ class MakeController extends ControllerMakeCommand implements SectionName, Contr
             if (! class_exists($requestClass)) {
                 if ($this->confirm("A {$requestClass} Request does not exist. Do you want to generate it?", true)) {
                     $this->call('make:request', [
-                        'name'              => Str::studly($this->nameWithoutController()).'Request',
-                        '--section'         => $this->option('section'),
-                        '--admin'           => $this->option('admin'),
-                        '--site'            => $this->option('site'),
-                        '--api'             => $this->option('api'),
-                        '--api-version'     => $this->option('api-version') ? $this->option('api-version') : 'V1',
+                        'name' => Str::studly($this->nameWithoutController()).'Request',
+                        '--section' => $this->option('section'),
+                        '--admin' => $this->option('admin'),
+                        '--site' => $this->option('site'),
+                        '--api' => $this->option('api'),
+                        '--api-version' => $this->option('api-version') ? $this->option('api-version') : 'V1',
                     ]);
                 }
             }
@@ -235,7 +235,7 @@ class MakeController extends ControllerMakeCommand implements SectionName, Contr
 
         return array_merge($replace, [
             'DummyFullRequestClass' => ($this->option('section')) ? $requestClass : 'Illuminate\Http\Request',
-            'DummyRequestClass'     => ($this->option('section')) ? Str::studly($this->nameWithoutController()).'Request' : 'Request',
+            'DummyRequestClass' => ($this->option('section')) ? Str::studly($this->nameWithoutController()).'Request' : 'Request',
         ]);
     }
 

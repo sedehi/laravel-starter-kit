@@ -25,8 +25,8 @@ class MakeModel extends ModelMakeCommand implements SectionName
     {
         $factory = Str::studly(class_basename($this->argument('name')));
         $this->call('make:factory', [
-            'name'      => "{$factory}Factory",
-            '--model'   => $this->qualifyClass($this->getNameInput()),
+            'name' => "{$factory}Factory",
+            '--model' => $this->qualifyClass($this->getNameInput()),
             '--section' => Str::studly($this->option('section')),
         ]);
     }
@@ -38,8 +38,8 @@ class MakeModel extends ModelMakeCommand implements SectionName
             $table = Str::singular($table);
         }
         $this->call('make:migration', [
-            'name'      => "create_{$table}_table",
-            '--create'  => $table,
+            'name' => "create_{$table}_table",
+            '--create' => $table,
             '--section' => Str::studly($this->option('section')),
         ]);
     }

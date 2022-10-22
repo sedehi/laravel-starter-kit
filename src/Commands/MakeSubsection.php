@@ -70,13 +70,13 @@ class MakeSubsection extends Command
     {
         $this->call('make:controller', [
             '--section' => $this->argument('parent'),
-            'name'      => ucfirst($this->argument('name')).'Controller',
-            '--admin'   => true,
-            '--crud'    => true,
-            '--model'   => $this->argument('name'),
+            'name' => ucfirst($this->argument('name')).'Controller',
+            '--admin' => true,
+            '--crud' => true,
+            '--model' => $this->argument('name'),
         ]);
         $this->call('make:view', [
-            'name'  => strtolower($this->argument('name')),
+            'name' => strtolower($this->argument('name')),
         ]);
     }
 
@@ -84,14 +84,14 @@ class MakeSubsection extends Command
     {
         $this->call('make:controller', [
             '--section' => $this->argument('parent'),
-            'name'      => ucfirst($this->argument('name')).'Controller',
-            '--upload'  => true,
-            '--model'   => $this->argument('name'),
-            '--admin'   => true,
+            'name' => ucfirst($this->argument('name')).'Controller',
+            '--upload' => true,
+            '--model' => $this->argument('name'),
+            '--admin' => true,
         ]);
         $this->call('make:view', [
-            'name'       => strtolower($this->argument('name')),
-            '--upload'   => true,
+            'name' => strtolower($this->argument('name')),
+            '--upload' => true,
         ]);
     }
 
@@ -99,8 +99,8 @@ class MakeSubsection extends Command
     {
         $this->call('make:controller', [
             '--section' => ucfirst($this->argument('parent')),
-            'name'      => ucfirst($this->argument('name')).'Controller',
-            '--site'    => true,
+            'name' => ucfirst($this->argument('name')).'Controller',
+            '--site' => true,
         ]);
         if (! File::isDirectory(app_path('Http/Controllers/'.ucfirst($this->argument('parent')).'/views/site/'))) {
             File::makeDirectory(app_path('Http/Controllers/'.ucfirst($this->argument('parent')).'/views/site/'), 0775, true);
@@ -111,16 +111,16 @@ class MakeSubsection extends Command
     {
         $this->call('make:migration', [
             '--section' => ucfirst($this->argument('parent')),
-            'name'      => 'create_'.$name.'_table',
+            'name' => 'create_'.$name.'_table',
         ]);
     }
 
     private function makeApiController()
     {
         $this->call('make:controller', [
-            '--section'     => ucfirst($this->argument('parent')),
-            'name'          => ucfirst($this->argument('name')).'Controller',
-            '--api'         => true,
+            '--section' => ucfirst($this->argument('parent')),
+            'name' => ucfirst($this->argument('name')).'Controller',
+            '--api' => true,
             '--api-version' => 'v1',
         ]);
     }
@@ -164,9 +164,9 @@ class MakeSubsection extends Command
     private function makeFactory()
     {
         $this->call('make:factory', [
-            'name'      => ucfirst($this->argument('name')).'Factory',
+            'name' => ucfirst($this->argument('name')).'Factory',
             '--section' => ucfirst($this->argument('parent')),
-            '--model'   => $this->laravel->getNamespace().'Http\Controllers\\'.Str::studly($this->argument('parent')).
+            '--model' => $this->laravel->getNamespace().'Http\Controllers\\'.Str::studly($this->argument('parent')).
                 '\\Models\\'.Str::studly($this->argument('name')),
         ]);
     }

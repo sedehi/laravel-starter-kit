@@ -57,6 +57,5 @@ class LaravelStarterKitServiceProvider extends ServiceProvider
         // Automatically apply the package configuration
         $this->mergeConfigFrom(__DIR__.'/../config/starter-kit.php', 'starter-kit');
         $this->app->register(CommandServiceProvider::class);
-
     }
 }

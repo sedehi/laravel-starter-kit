@@ -19,9 +19,13 @@ use Sedehi\LaravelStarterKit\Commands\Questions\SectionName;
 trait Interactive
 {
     private $needApiVersion = false;
+
     private $needModel = false;
+
     private $needParentModel = false;
+
     private $needController = false;
+
     private $needClassType = false;
 
     public function handle()

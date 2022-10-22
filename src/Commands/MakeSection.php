@@ -34,8 +34,8 @@ class MakeSection extends Command
         }
 
         $this->call('make:subsection', [
-            'parent'    => strtolower($this->argument('name')),
-            'name'      => strtolower($this->argument('name')),
+            'parent' => strtolower($this->argument('name')),
+            'name' => strtolower($this->argument('name')),
         ]);
     }
 }
