@@ -4,6 +4,7 @@ namespace Sedehi\LaravelStarterKit\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\File;
 use Sedehi\LaravelStarterKit\Composer;
 
 class InstallCommand extends Command
@@ -47,5 +48,22 @@ class InstallCommand extends Command
         app()->make(Composer::class)->run(['require', 'opcodesio/log-viewer', '--dev']);
         Artisan::call('vendor:publish', ['--tag' => 'log-viewer-config']);
         $this->callSilently('starter-install:publish-user-section');
+
+        $this->makeAdminRouteAndController();
+
+
+    }
+
+    /**
+     * @return void
+     */
+    private function makeAdminRouteAndController(): void
+    {
+        if (!File::exists(base_path('routes/admin.php'))) {
+            File::copy(__DIR__.'/../stubs/routes/admin.stub', base_path('routes/admin.php'));
+        }
+        if (!File::exists(app_path('Http/Controllers/AdminController.php'))) {
+            File::copy(__DIR__.'/../stubs/controllers/AdminController.stub', app_path('Http/Controllers/AdminController.php'));
+        }
     }
 }

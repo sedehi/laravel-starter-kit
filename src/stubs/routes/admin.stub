@@ -1,0 +1,4 @@
+<?php
+use Sedehi\Artist\Http\Controllers\AdminController;
+
+Route::get('/', AdminController::class)->name('home');
