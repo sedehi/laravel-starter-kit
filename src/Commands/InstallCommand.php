@@ -44,6 +44,8 @@ class InstallCommand extends Command
         app()->make(Composer::class)->run(['require', 'laravel/horizon']);
         Artisan::call('vendor:publish', ['--provider' => 'Laravel\Horizon\HorizonServiceProvider']);
         app()->make(Composer::class)->run(['require', 'barryvdh/laravel-debugbar', '--dev']);
+        app()->make(Composer::class)->run(['require', 'opcodesio/log-viewer', '--dev']);
+        Artisan::call('vendor:publish', ['--tag' => 'log-viewer-config']);
         $this->callSilently('starter-install:publish-user-section');
     }
 }
