@@ -2,7 +2,7 @@
         'user.usercontroller.index'
     ]))
     <li class="nav-item dropdown">
-        <a class="dropdown-toggle" href="{{ action([\App\Http\Controllers\User\Controllers\Admin\UserController::class,'index']) }}">
+        <a class="dropdown-toggle" href="{{ action([\App\Modules\User\Controllers\Admin\UserController::class,'index']) }}">
             <span class="icon-holder"><i class="c-orange-500 ti-user"></i></span>
             <span class="title">کاربران</span>
         </a>
@@ -12,7 +12,7 @@
         'user.profilecontroller.index'
     ]))
     <li class="nav-item dropdown">
-        <a class="dropdown-toggle" href="{{ action([\App\Http\Controllers\User\Controllers\Admin\ProfileController::class,'index']) }}">
+        <a class="dropdown-toggle" href="{{ action([\App\Modules\User\Controllers\Admin\ProfileController::class,'index']) }}">
             <span class="icon-holder"><i class="c-orange-500 ti-user"></i></span>
             <span class="title">پروفایل ها</span>
         </a>

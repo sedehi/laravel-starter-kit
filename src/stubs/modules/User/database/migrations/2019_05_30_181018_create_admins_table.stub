@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\Http\Controllers\User\database\seeds\AdminTableSeeder;
+use App\Modules\User\database\seeds\AdminTableSeeder;
 
 class CreateAdminsTable extends Migration
 {

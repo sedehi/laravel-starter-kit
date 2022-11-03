@@ -1,0 +1,4 @@
+<?php
+
+use App\Modules\User\Controllers\Admin\AdminController;
+Route::resource('admins', AdminController::class);

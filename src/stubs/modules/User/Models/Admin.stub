@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\User\Models;
+namespace App\Modules\User\Models;
 
-use App\Http\Controllers\Role\Models\Role;
+use App\Modules\Role\Models\Role;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 

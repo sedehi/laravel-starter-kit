@@ -4,7 +4,7 @@
         <div class="col-md-12">
             <div class="bgc-white p-20 bd">
                 <div class="mT-30">
-                    <form action="{{ action([\App\Http\Controllers\User\Controllers\Admin\ChangePasswordController::class,'change']) }}" method="post">
+                    <form action="{{ action([\App\Modules\User\Controllers\Admin\ChangePasswordController::class,'change']) }}" method="post">
                         @csrf
                         <div class="row">
                             <div class="form-group col-md-5">

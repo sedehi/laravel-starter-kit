@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\User\database\seeds;
 
 use Illuminate\Database\Seeder;
-use App\Http\Controllers\User\Models\Admin;
+use App\Modules\User\Models\Admin;
 
 class AdminTableSeeder extends Seeder
 {

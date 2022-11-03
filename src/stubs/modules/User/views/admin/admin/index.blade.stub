@@ -34,10 +34,10 @@
             </td>
             <td>
                 @if(Gate::allows('user.admincontroller.edit'))
-                    <a href="{!! action([\App\Http\Controllers\User\Controllers\Admin\AdminController::class,'edit'],$item->id) !!}"><i class="fa fa-pencil-square-o"></i></a>
+                    <a href="{!! action([\App\Modules\User\Controllers\Admin\AdminController::class,'edit'],$item->id) !!}"><i class="fa fa-pencil-square-o"></i></a>
                 @endif
                 @if(Gate::allows('user.admincontroller.show'))
-                    <a href="{!! action([\App\Http\Controllers\User\Controllers\Admin\AdminController::class,'show'],$item->id) !!}"><i class="fa fa-eye"></i></a>
+                    <a href="{!! action([\App\Modules\User\Controllers\Admin\AdminController::class,'show'],$item->id) !!}"><i class="fa fa-eye"></i></a>
                 @endif
             </td>
         </tr>

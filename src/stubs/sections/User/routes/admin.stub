@@ -1,4 +1,0 @@
-<?php
-
-use App\Http\Controllers\User\Controllers\Admin\AdminController;
-Route::resource('admins', AdminController::class);
