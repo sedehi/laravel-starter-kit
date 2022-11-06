@@ -5,6 +5,7 @@ namespace Sedehi\LaravelStarterKit;
 use Illuminate\Support\ServiceProvider;
 use Sedehi\LaravelStarterKit\Commands\InstallCommand;
 use Sedehi\LaravelStarterKit\Commands\PublishUserSectionCommand;
+use Sedehi\LaravelStarterKit\Commands\UpdateTablerSidebar;
 
 class LaravelStarterKitServiceProvider extends ServiceProvider
 {
@@ -45,6 +46,7 @@ class LaravelStarterKitServiceProvider extends ServiceProvider
             $this->commands([
                 InstallCommand::class,
                 PublishUserSectionCommand::class,
+                UpdateTablerSidebar::class
             ]);
         }
     }

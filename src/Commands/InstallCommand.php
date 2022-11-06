@@ -49,6 +49,7 @@ class InstallCommand extends Command
         app()->make(Composer::class)->run(['require', 'sedehi/laravel-module']);
         Artisan::call('vendor:publish', ['--tag' => 'log-viewer-config']);
         $this->callSilently('starter-install:publish-user-section');
+        $this->callSilently('starter-install:update-tabler-sidebar');
 
         $this->makeAdminRouteAndController();
     }
