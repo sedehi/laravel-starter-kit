@@ -23,8 +23,8 @@ class UpdateTablerSidebar extends Command
      */
     public function handle()
     {
-        if(!File::exists(base_path('resources/views/vendor/tabler/partials/sidebar-orginal.blade.php'))){
-            if(File::exists(base_path('resources/views/vendor/tabler/partials/sidebar.blade.php'))){
+        if (! File::exists(base_path('resources/views/vendor/tabler/partials/sidebar-orginal.blade.php'))) {
+            if (File::exists(base_path('resources/views/vendor/tabler/partials/sidebar.blade.php'))) {
                 File::move(
                     base_path('resources/views/vendor/tabler/partials/sidebar.blade.php'),
                     base_path('resources/views/vendor/tabler/partials/sidebar-orginal.blade.php')
