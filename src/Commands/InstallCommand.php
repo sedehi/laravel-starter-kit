@@ -3,7 +3,6 @@
 namespace Sedehi\LaravelStarterKit\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
 use Sedehi\LaravelStarterKit\Composer;
 
 class InstallCommand extends Command
@@ -39,6 +38,5 @@ class InstallCommand extends Command
         app()->make(Composer::class)->run(['require', 'barryvdh/laravel-debugbar', '--dev']);
         app()->make(Composer::class)->run(['require', 'opcodesio/log-viewer', '--dev']);
         app()->make(Composer::class)->run(['require', 'sedehi/laravel-module']);
-
     }
 }
