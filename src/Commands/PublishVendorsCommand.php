@@ -14,7 +14,7 @@ class PublishVendorsCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'starter-kit:publish-vendors';
+    protected $signature = 'starter-install:publish-vendors';
 
     public $hidden = true;
 
