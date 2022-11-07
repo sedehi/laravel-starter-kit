@@ -39,6 +39,7 @@ class VendorPublishCommand extends Command
         $this->call(PublishUserSectionCommand::class);
         $this->call(UpdateTablerSidebar::class);
 
+        $this->call('module:install');
         $this->makeAdminRouteAndController();
     }
 
