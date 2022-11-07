@@ -24,11 +24,11 @@ class PublishUserSectionCommand extends Command
      */
     public function handle()
     {
-        if (! File::isDirectory(app()->basePath('Modules/User'))) {
-            File::copyDirectory(__DIR__.'/../stubs/modules/User/', app()->basePath('Modules/User'));
-            $files = File::allFiles(app()->basePath('modules/User/'));
+        if (! File::isDirectory(app_path('Modules/User'))) {
+            File::copyDirectory(__DIR__.'/../stubs/modules/User/', app_path('Modules/User'));
+            $files = File::allFiles(app_path('modules/User/'));
             foreach ($files as $file) {
-                $stubFileFullNameWithPath = app()->basePath('Modules/User/'.$file->getRelativePathname());
+                $stubFileFullNameWithPath = app_path('Modules/User/'.$file->getRelativePathname());
                 $phpFileFullNameWithPath = Str::replace('.stub', '.php', $stubFileFullNameWithPath);
                 File::move($stubFileFullNameWithPath, $phpFileFullNameWithPath);
             }
