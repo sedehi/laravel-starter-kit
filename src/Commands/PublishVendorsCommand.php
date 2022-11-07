@@ -12,8 +12,6 @@ class PublishVendorsCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'starter-install:publish-vendors';
-
     public $hidden = true;
 
     /**
@@ -38,8 +36,8 @@ class PublishVendorsCommand extends Command
         $this->call('vendor:publish', ['--provider' => 'Sedehi\LaravelTools\LaravelToolsServiceProvider']);
         $this->call('vendor:publish', ['--provider' => 'Laravel\Horizon\HorizonServiceProvider']);
         $this->call('vendor:publish', ['--tag' => 'log-viewer-config']);
-        $this->callSilently('starter-install:publish-user-section');
-        $this->callSilently('starter-install:update-tabler-sidebar');
+        $this->call(PublishUserSectionCommand::class);
+        $this->call(UpdateTablerSidebar::class);
 
         $this->makeAdminRouteAndController();
     }
