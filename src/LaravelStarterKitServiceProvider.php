@@ -2,11 +2,11 @@
 
 namespace Sedehi\LaravelStarterKit;
 
-use Illuminate\Foundation\Console\VendorPublishCommand;
 use Illuminate\Support\ServiceProvider;
 use Sedehi\LaravelStarterKit\Commands\InstallCommand;
 use Sedehi\LaravelStarterKit\Commands\PublishUserSectionCommand;
 use Sedehi\LaravelStarterKit\Commands\UpdateTablerSidebar;
+use Sedehi\LaravelStarterKit\Commands\VendorPublishCommand;
 
 class LaravelStarterKitServiceProvider extends ServiceProvider
 {
