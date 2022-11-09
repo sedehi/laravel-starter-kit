@@ -43,7 +43,6 @@ class VendorPublishCommand extends Command
         $this->call('module:install');
         $this->makeAdminRouteAndController();
         $this->publishCrudViews();
-
     }
 
     /**
@@ -64,12 +63,12 @@ class VendorPublishCommand extends Command
      */
     private function publishCrudViews(): void
     {
-        if (!File::isDirectory(base_path('resources/views/crud'))) {
-            File::copyDirectory(__DIR__ . '/stubs/views/crud', base_path('resources/views'));
-            if (!File::isDirectory(app_path('resources/views/crud'))) {
+        if (! File::isDirectory(base_path('resources/views/crud'))) {
+            File::copyDirectory(__DIR__.'/stubs/views/crud', base_path('resources/views'));
+            if (! File::isDirectory(app_path('resources/views/crud'))) {
                 $files = File::allFiles(app_path('resources/views/crud'));
                 foreach ($files as $file) {
-                    $stubFileFullNameWithPath = app_path('resources/views/crud/' . $file->getRelativePathname());
+                    $stubFileFullNameWithPath = app_path('resources/views/crud/'.$file->getRelativePathname());
                     $phpFileFullNameWithPath = Str::replace('.stub', '.php', $stubFileFullNameWithPath);
                     File::move($stubFileFullNameWithPath, $phpFileFullNameWithPath);
                 }
