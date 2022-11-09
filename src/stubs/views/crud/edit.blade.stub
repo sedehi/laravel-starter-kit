@@ -1,0 +1,21 @@
+@extends('tabler::layout')
+@section('content')
+	<div class="page-header">
+		<x-tabler::page-title :title="trans('admin.'.$routePrefix)" :pretitle="trans('admin.title')"/>
+	</div>
+	<div class="col-12">
+		<form action="{{route('admin.'.$routePrefix.'.edit',$item->id)}}" method="post" class="card" enctype="multipart/form-data">
+			@csrf
+			@method('PUT')
+			<div class="card-body">
+				@includeIf($module.'::admin.'.$routePrefixSingular.'.form')
+			</div>
+			<div class="card-footer text-end">
+				<div class="d-flex">
+					<button type="submit" class="btn btn-primary me-auto">@lang('admin.submit')</button>
+					<a href="{{route('admin.'.$routePrefix.'.index')}}" class="btn btn-link">@lang('admin.cancel')</a>
+				</div>
+			</div>
+		</form>
+	</div>
+@endsection

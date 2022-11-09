@@ -4,6 +4,7 @@ namespace Sedehi\LaravelStarterKit\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class VendorPublishCommand extends Command
 {
@@ -41,6 +42,8 @@ class VendorPublishCommand extends Command
 
         $this->call('module:install');
         $this->makeAdminRouteAndController();
+        $this->publishCrudViews();
+
     }
 
     /**
@@ -53,6 +56,24 @@ class VendorPublishCommand extends Command
         }
         if (! File::exists(app_path('Http/Controllers/AdminController.php'))) {
             File::copy(__DIR__.'/../stubs/controllers/AdminController.stub', app_path('Http/Controllers/AdminController.php'));
+        }
+    }
+
+    /**
+     * @return void
+     */
+    private function publishCrudViews(): void
+    {
+        if (!File::isDirectory(base_path('resources/views/crud'))) {
+            File::copyDirectory(__DIR__ . '/stubs/views/crud', base_path('resources/views'));
+            if (!File::isDirectory(app_path('resources/views/crud'))) {
+                $files = File::allFiles(app_path('resources/views/crud'));
+                foreach ($files as $file) {
+                    $stubFileFullNameWithPath = app_path('resources/views/crud/' . $file->getRelativePathname());
+                    $phpFileFullNameWithPath = Str::replace('.stub', '.php', $stubFileFullNameWithPath);
+                    File::move($stubFileFullNameWithPath, $phpFileFullNameWithPath);
+                }
+            }
         }
     }
 }
