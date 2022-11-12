@@ -4,8 +4,7 @@
 		<x-tabler::page-title :title="trans('admin.'.$routePrefix)" :pretitle="trans('admin.title')"/>
 	</div>
 	<div class="col-12">
-		<form action="{{route('admin.'.$routePrefix.'.store')}}" method="post" class="card" enctype="multipart/form-data">
-			@csrf
+		<x:form::form class="card" method="POST" :action="route('admin.'.$routePrefix.'.store')" enctype="multipart/form-data">
 			<div class="card-body">
 				@includeIf($module.'::admin.'.$routePrefixSingular.'.form')
 			</div>
@@ -15,6 +14,6 @@
 					<a href="{{route('admin.'.$routePrefix.'.index')}}" class="btn btn-link">@lang('admin.cancel')</a>
 				</div>
 			</div>
-		</form>
+		</x:form:form>
 	</div>
 @endsection
