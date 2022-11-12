@@ -18,7 +18,7 @@
 					@sectionMissing('search')
 						<a href="#" class="btn btn-white" data-bs-toggle="modal" data-bs-target="#modal-search">@lang('admin.search')</a>
 						@if(view()->exists($module.'::admin.'.$routePrefixSingular.'.search-form'))
-							<x-tabler::modal name="search" title="@lang('admin.search')" submit-text="@lang('admin.search')" form-action="{{request()->url()}}" form-method="GET">
+							<x-tabler::modal name="search" :title="trans('admin.search')" :submit-text="trans('admin.search')" form-action="{{request()->url()}}" form-method="GET">
 								@include($module.'::admin.'.$routePrefixSingular.'.search-form')
 							</x-tabler::modal>
 						@endif
