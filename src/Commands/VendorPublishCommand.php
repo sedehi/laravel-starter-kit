@@ -128,14 +128,13 @@ class VendorPublishCommand extends Command
         }
     }
 
-
     private function updateAuthConfig()
     {
         $authConfigData = config('auth');
         $authConfigPath = config_path('auth.php');
         $authConfig = file_get_contents($authConfigPath);
         $eol = $this->EOL($authConfig);
-        if (!Arr::has($authConfigData, 'guards.admin')) {
+        if (! Arr::has($authConfigData, 'guards.admin')) {
             $authConfig = str_replace(
                 "'guards' => [".$eol,
                 "'guards' => [".$eol."\t\t'admin' => [
@@ -148,7 +147,7 @@ class VendorPublishCommand extends Command
             file_put_contents($authConfigPath, $authConfig);
         }
 
-        if (!Arr::has($authConfigData, 'providers.admins')) {
+        if (! Arr::has($authConfigData, 'providers.admins')) {
             file_put_contents($authConfigPath, str_replace(
                 "'providers' => [".$eol,
                 "'providers' => [".$eol."\t\t'admins' => [
@@ -164,8 +163,8 @@ class VendorPublishCommand extends Command
     {
         $lineEndingCount = [
             "\r\n" => substr_count($routeServiceProvider, "\r\n"),
-            "\r"   => substr_count($routeServiceProvider, "\r"),
-            "\n"   => substr_count($routeServiceProvider, "\n"),
+            "\r" => substr_count($routeServiceProvider, "\r"),
+            "\n" => substr_count($routeServiceProvider, "\n"),
         ];
 
         return array_keys($lineEndingCount, max($lineEndingCount))[0];
