@@ -10,7 +10,6 @@ use Laravel\Horizon\HorizonServiceProvider;
 use Okipa\LaravelFormComponents\LaravelFormComponentsServiceProvider;
 use Sedehi\Filterable\FilterableServiceProvider;
 use Sedehi\LaravelModule\LaravelModuleServiceProvider;
-use Sedehi\LaravelStarterKit\LaravelStarterKitServiceProvider;
 use Sedehi\LaravelTools\LaravelToolsServiceProvider;
 use Sedehi\Tabler\TablerServiceProvider;
 use Spatie\Permission\PermissionServiceProvider;
