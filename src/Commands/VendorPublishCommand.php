@@ -29,7 +29,7 @@ class VendorPublishCommand extends Command
      */
     public function handle()
     {
-        $this->call('vendor:publish', ['--provider' => 'Kodeine\Acl\AclServiceProvider']);
+        $this->call('vendor:publish', ['--provider' => 'Spatie\Permission\PermissionServiceProvider']);
         $this->call('vendor:publish', ['--provider' => 'Intervention\Image\ImageServiceProviderLaravelRecent']);
         $this->call('vendor:publish', ['--provider' => 'Sedehi\Filterable\FilterableServiceProvider']);
         $this->call('vendor:publish', ['--provider' => 'Sedehi\Tabler\TablerServiceProvider']);
