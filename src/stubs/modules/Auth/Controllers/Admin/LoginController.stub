@@ -8,7 +8,7 @@ class LoginController extends Controller
 {
     public function showLoginForm()
     {
-        return view('tabler::auth.login');
+        return view('Auth::admin.login');
     }
 
     public function login()
