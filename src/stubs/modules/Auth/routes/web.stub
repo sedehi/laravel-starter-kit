@@ -1,6 +1,14 @@
 <?php
 
 use App\Modules\Auth\Controllers\Admin\LoginController;
-Route::get('login', [LoginController::class,'showLoginForm'])->name('admin.login.form');
-Route::post('login', [LoginController::class,'login'])->name('admin.login');
-Route::post('login', [LoginController::class,'logout'])->name('admin.logout');
+use Illuminate\Support\Facades\Route;
+
+Route::domain(config('starter-kit.domain.admin'))
+    ->name('admin.')
+    ->prefix(config('starter-kit.admin_path'))
+    ->group(function (){
+    Route::get('login', [LoginController::class, 'showLoginForm'])->name('login.form');
+    Route::post('login', [LoginController::class, 'login'])->name('login');
+    Route::post('login', [LoginController::class, 'logout'])->name('logout');
+});
+

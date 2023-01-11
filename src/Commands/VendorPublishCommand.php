@@ -5,6 +5,14 @@ namespace Sedehi\LaravelStarterKit\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use Intervention\Image\ImageServiceProviderLaravelRecent;
+use Laravel\Horizon\HorizonServiceProvider;
+use Okipa\LaravelFormComponents\LaravelFormComponentsServiceProvider;
+use Sedehi\Filterable\FilterableServiceProvider;
+use Sedehi\LaravelStarterKit\LaravelStarterKitServiceProvider;
+use Sedehi\LaravelTools\LaravelToolsServiceProvider;
+use Sedehi\Tabler\TablerServiceProvider;
+use Spatie\Permission\PermissionServiceProvider;
 use Symfony\Component\Process\Process;
 
 class VendorPublishCommand extends Command
@@ -30,13 +38,14 @@ class VendorPublishCommand extends Command
      */
     public function handle()
     {
-        $this->call('vendor:publish', ['--provider' => 'Spatie\Permission\PermissionServiceProvider']);
-        $this->call('vendor:publish', ['--provider' => 'Intervention\Image\ImageServiceProviderLaravelRecent']);
-        $this->call('vendor:publish', ['--provider' => 'Sedehi\Filterable\FilterableServiceProvider']);
-        $this->call('vendor:publish', ['--provider' => 'Sedehi\Tabler\TablerServiceProvider']);
-        $this->call('vendor:publish', ['--provider' => 'Okipa\LaravelFormComponents\LaravelFormComponentsServiceProvider']);
-        $this->call('vendor:publish', ['--provider' => 'Sedehi\LaravelTools\LaravelToolsServiceProvider']);
-        $this->call('vendor:publish', ['--provider' => 'Laravel\Horizon\HorizonServiceProvider']);
+        $this->call('vendor:publish', ['--provider' => PermissionServiceProvider::class]);
+        $this->call('vendor:publish', ['--provider' => ImageServiceProviderLaravelRecent::class]);
+        $this->call('vendor:publish', ['--provider' => FilterableServiceProvider::class]);
+        $this->call('vendor:publish', ['--provider' => TablerServiceProvider::class]);
+        $this->call('vendor:publish', ['--provider' => LaravelFormComponentsServiceProvider::class]);
+        $this->call('vendor:publish', ['--provider' => LaravelToolsServiceProvider::class]);
+        $this->call('vendor:publish', ['--provider' => LaravelStarterKitServiceProvider::class]);
+        $this->call('vendor:publish', ['--provider' => HorizonServiceProvider::class]);
         $this->call('vendor:publish', ['--tag' => 'log-viewer-config']);
         $this->call(PublishModuleCommand::class, ['name' => 'User']);
         $this->call(PublishModuleCommand::class, ['name' => 'Auth']);
@@ -70,6 +79,24 @@ class VendorPublishCommand extends Command
         if (! File::isDirectory($path)) {
             File::makeDirectory($path);
             File::copyDirectory(__DIR__.'/../stubs/views/crud', $path);
+            $files = File::allFiles($path);
+            foreach ($files as $file) {
+                $stubFileFullNameWithPath = $path.'/'.$file->getRelativePathname();
+                $phpFileFullNameWithPath = Str::replace('.stub', '.php', $stubFileFullNameWithPath);
+                File::move($stubFileFullNameWithPath, $phpFileFullNameWithPath);
+            }
+        }
+    }
+
+    /**
+     * @return void
+     */
+    private function publishAuthViews(): void
+    {
+        $path = base_path('resources/views/auth');
+        if (! File::isDirectory($path)) {
+            File::makeDirectory($path);
+            File::copyDirectory(__DIR__.'/../stubs/views/auth', $path);
             $files = File::allFiles($path);
             foreach ($files as $file) {
                 $stubFileFullNameWithPath = $path.'/'.$file->getRelativePathname();

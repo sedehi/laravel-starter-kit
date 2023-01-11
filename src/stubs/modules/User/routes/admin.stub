@@ -1,4 +1,6 @@
 <?php
 
 use App\Modules\User\Controllers\Admin\AdminController;
+use Illuminate\Support\Facades\Route;
+
 Route::resource('admins', AdminController::class);
