@@ -14,7 +14,7 @@ class LoginController extends Controller
     public function login()
     {
         $credentials = request()->only(['email', 'password']);
-        $login = auth()->attempt($credentials);
+        $login = auth('admin')->attempt($credentials);
         if ($login) {
             request()->session()->regenerate();
             if (request()->has('return')) {
@@ -31,7 +31,7 @@ class LoginController extends Controller
 
     public function logout()
     {
-        auth()->logout();
+        auth('admin')->logout();
 
         return redirect()->route('admin.login.form');
     }
