@@ -3,6 +3,7 @@
 namespace Sedehi\LaravelStarterKit\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageServiceProviderLaravelRecent;
@@ -56,6 +57,7 @@ class VendorPublishCommand extends Command
         $this->publishCrudViews();
         $this->publishAuthViews();
         $this->publishFaLang();
+        $this->updateAuthConfig();
         (new Process([base_path('./vendor/bin/pint')]))->run();
     }
 
@@ -124,5 +126,48 @@ class VendorPublishCommand extends Command
                 File::move($stubFileFullNameWithPath, $phpFileFullNameWithPath);
             }
         }
+    }
+
+
+    private function updateAuthConfig()
+    {
+        $authConfigData = config('auth');
+        $authConfigPath = config_path('auth.php');
+        $authConfig = file_get_contents($authConfigPath);
+        $eol = $this->EOL($authConfig);
+        if (!Arr::has($authConfigData, 'guards.admin')) {
+            $authConfig = str_replace(
+                "'guards' => [".$eol,
+                "'guards' => [".$eol."\t\t'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],".$eol,
+                $authConfig
+            );
+
+            file_put_contents($authConfigPath, $authConfig);
+        }
+
+        if (!Arr::has($authConfigData, 'providers.admins')) {
+            file_put_contents($authConfigPath, str_replace(
+                "'providers' => [".$eol,
+                "'providers' => [".$eol."\t\t'admins' => [
+            'driver' => 'eloquent',
+            'model' => \App\Modules\User\Models\Admin::class,
+        ],".$eol,
+                $authConfig
+            ));
+        }
+    }
+
+    private function EOL(string $routeServiceProvider)
+    {
+        $lineEndingCount = [
+            "\r\n" => substr_count($routeServiceProvider, "\r\n"),
+            "\r"   => substr_count($routeServiceProvider, "\r"),
+            "\n"   => substr_count($routeServiceProvider, "\n"),
+        ];
+
+        return array_keys($lineEndingCount, max($lineEndingCount))[0];
     }
 }
