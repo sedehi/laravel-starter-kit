@@ -54,6 +54,8 @@ class VendorPublishCommand extends Command
         $this->call('module:install');
         $this->makeAdminRouteAndController();
         $this->publishCrudViews();
+        $this->publishAuthViews();
+        $this->publishFaLang();
         (new Process([base_path('./vendor/bin/pint')]))->run();
     }
 
@@ -97,6 +99,24 @@ class VendorPublishCommand extends Command
         if (! File::isDirectory($path)) {
             File::makeDirectory($path);
             File::copyDirectory(__DIR__.'/../stubs/views/auth', $path);
+            $files = File::allFiles($path);
+            foreach ($files as $file) {
+                $stubFileFullNameWithPath = $path.'/'.$file->getRelativePathname();
+                $phpFileFullNameWithPath = Str::replace('.stub', '.php', $stubFileFullNameWithPath);
+                File::move($stubFileFullNameWithPath, $phpFileFullNameWithPath);
+            }
+        }
+    }
+
+    /**
+     * @return void
+     */
+    private function publishFaLang(): void
+    {
+        $path = base_path('lang/fa');
+        if (! File::isDirectory($path)) {
+            File::makeDirectory($path);
+            File::copyDirectory(__DIR__.'/../stubs/lang/fa', $path);
             $files = File::allFiles($path);
             foreach ($files as $file) {
                 $stubFileFullNameWithPath = $path.'/'.$file->getRelativePathname();

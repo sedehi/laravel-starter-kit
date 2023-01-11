@@ -24,7 +24,7 @@
                     @enderror
                 </div>
                 <div class="form-footer">
-                    <button type="submit" class="btn btn-primary w-100">@lang('artist::auth.button')</button>
+                    <button type="submit" class="btn btn-primary w-100">@lang('auth.login')</button>
                 </div>
             </div>
         </form>
