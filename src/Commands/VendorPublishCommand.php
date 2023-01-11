@@ -67,13 +67,12 @@ class VendorPublishCommand extends Command
         if (! File::isDirectory($path)) {
             File::makeDirectory($path);
             File::copyDirectory(__DIR__.'/../stubs/views/crud', $path);
-                $files = File::allFiles($path);
-                foreach ($files as $file) {
-                    $stubFileFullNameWithPath = $path.'/'.$file->getRelativePathname();
-                    $phpFileFullNameWithPath = Str::replace('.stub', '.php', $stubFileFullNameWithPath);
-                    File::move($stubFileFullNameWithPath, $phpFileFullNameWithPath);
-                }
-
+            $files = File::allFiles($path);
+            foreach ($files as $file) {
+                $stubFileFullNameWithPath = $path.'/'.$file->getRelativePathname();
+                $phpFileFullNameWithPath = Str::replace('.stub', '.php', $stubFileFullNameWithPath);
+                File::move($stubFileFullNameWithPath, $phpFileFullNameWithPath);
+            }
         }
     }
 }
