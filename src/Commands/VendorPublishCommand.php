@@ -63,17 +63,17 @@ class VendorPublishCommand extends Command
      */
     private function publishCrudViews(): void
     {
-        if (! File::isDirectory(base_path('resources/views/crud'))) {
-            File::makeDirectory(__DIR__.'/stubs/views/crud');
-            File::copyDirectory(__DIR__.'/stubs/views/crud', base_path('resources/views'));
-            if (! File::isDirectory(app_path('resources/views/crud'))) {
-                $files = File::allFiles(app_path('resources/views/crud'));
+        $path = base_path('resources/views/crud');
+        if (! File::isDirectory($path)) {
+            File::makeDirectory($path);
+            File::copyDirectory(__DIR__.'/../stubs/views/crud', $path);
+                $files = File::allFiles($path);
                 foreach ($files as $file) {
-                    $stubFileFullNameWithPath = app_path('resources/views/crud/'.$file->getRelativePathname());
+                    $stubFileFullNameWithPath = $path.'/'.$file->getRelativePathname();
                     $phpFileFullNameWithPath = Str::replace('.stub', '.php', $stubFileFullNameWithPath);
                     File::move($stubFileFullNameWithPath, $phpFileFullNameWithPath);
                 }
-            }
+
         }
     }
 }
