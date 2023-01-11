@@ -1,4 +1,6 @@
 <?php
 
-use App\Modules\User\Controllers\Admin\AdminController;
-Route::resource('admins', AdminController::class);
+use App\Modules\Auth\Controllers\Admin\LoginController;
+Route::get('login', [LoginController::class,'showLoginForm])->name('admin.login.form');
+Route::post('login', [LoginController::class,'login])->name('admin.login');
+Route::post('login', [LoginController::class,'logout])->name('admin.logout');

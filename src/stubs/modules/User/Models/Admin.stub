@@ -2,13 +2,13 @@
 
 namespace App\Modules\User\Models;
 
-use App\Modules\Role\Models\Role;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 class Admin extends Authenticatable
 {
-    use SoftDeletes;
+    use SoftDeletes,HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -37,8 +37,4 @@ class Admin extends Authenticatable
         return $this->first_name . ' ' . $this->last_name;
     }
 
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class);
-    }
 }
