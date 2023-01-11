@@ -24,9 +24,6 @@ class LaravelStarterKitServiceProvider extends ServiceProvider
         // $this->loadRoutesFrom(__DIR__.'/routes.php');
 
         if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__.'/../config/starter-kit.php' => config_path('starter-kit.php'),
-            ], 'config');
 
             // Publishing the views.
             /*$this->publishes([
@@ -59,6 +56,5 @@ class LaravelStarterKitServiceProvider extends ServiceProvider
     public function register()
     {
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__.'/../config/starter-kit.php', 'starter-kit');
     }
 }

@@ -9,6 +9,7 @@ use Intervention\Image\ImageServiceProviderLaravelRecent;
 use Laravel\Horizon\HorizonServiceProvider;
 use Okipa\LaravelFormComponents\LaravelFormComponentsServiceProvider;
 use Sedehi\Filterable\FilterableServiceProvider;
+use Sedehi\LaravelModule\LaravelModuleServiceProvider;
 use Sedehi\LaravelStarterKit\LaravelStarterKitServiceProvider;
 use Sedehi\LaravelTools\LaravelToolsServiceProvider;
 use Sedehi\Tabler\TablerServiceProvider;
@@ -44,7 +45,7 @@ class VendorPublishCommand extends Command
         $this->call('vendor:publish', ['--provider' => TablerServiceProvider::class]);
         $this->call('vendor:publish', ['--provider' => LaravelFormComponentsServiceProvider::class]);
         $this->call('vendor:publish', ['--provider' => LaravelToolsServiceProvider::class]);
-        $this->call('vendor:publish', ['--provider' => LaravelStarterKitServiceProvider::class]);
+        $this->call('vendor:publish', ['--provider' => LaravelModuleServiceProvider::class]);
         $this->call('vendor:publish', ['--provider' => HorizonServiceProvider::class]);
         $this->call('vendor:publish', ['--tag' => 'log-viewer-config']);
         $this->call(PublishModuleCommand::class, ['name' => 'User']);
