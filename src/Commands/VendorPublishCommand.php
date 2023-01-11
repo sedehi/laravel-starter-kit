@@ -37,7 +37,8 @@ class VendorPublishCommand extends Command
         $this->call('vendor:publish', ['--provider' => 'Sedehi\LaravelTools\LaravelToolsServiceProvider']);
         $this->call('vendor:publish', ['--provider' => 'Laravel\Horizon\HorizonServiceProvider']);
         $this->call('vendor:publish', ['--tag' => 'log-viewer-config']);
-        $this->call(PublishUserSectionCommand::class);
+        $this->call(PublishModuleCommand::class,['name' => 'User']);
+        $this->call(PublishModuleCommand::class,['name' => 'Auth']);
         $this->call(UpdateTablerSidebar::class);
 
         $this->call('module:install');

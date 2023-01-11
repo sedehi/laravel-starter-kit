@@ -39,6 +39,6 @@ class InstallCommand extends Command
         app()->make(Composer::class)->run(['require', 'opcodesio/log-viewer', '--dev']);
         app()->make(Composer::class)->run(['require', 'sedehi/laravel-module']);
         app()->make(Composer::class)->run(['require', 'doctrine/dbal']);
-        $this->info(' run starter-install:vendor-publish command');
+        $this->info(' run starter-kit:vendor-publish command');
     }
 }

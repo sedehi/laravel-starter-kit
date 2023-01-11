@@ -6,14 +6,14 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
-class PublishUserSectionCommand extends Command
+class PublishModuleCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'starter-kit:publish-user-section';
+    protected $signature = 'starter-kit:publish-module {name}';
 
     protected $hidden = true;
 
@@ -24,15 +24,18 @@ class PublishUserSectionCommand extends Command
      */
     public function handle()
     {
-        if (! File::isDirectory(app_path('Modules/User'))) {
-            File::copyDirectory(__DIR__.'/../stubs/modules/User/', app_path('Modules/User'));
-            $files = File::allFiles(app_path('modules/User/'));
+        $name = ucfirst($this->argument('name'));
+        if (!File::isDirectory(app_path('Modules/'.$name))) {
+            File::copyDirectory(__DIR__ . '/../stubs/modules/'.$name.'/', app_path('Modules/'.$name));
+            $files = File::allFiles(app_path('modules/'.$name));
             foreach ($files as $file) {
-                $stubFileFullNameWithPath = app_path('Modules/User/'.$file->getRelativePathname());
+                $stubFileFullNameWithPath = app_path('Modules/'.$name.'/' . $file->getRelativePathname());
                 $phpFileFullNameWithPath = Str::replace('.stub', '.php', $stubFileFullNameWithPath);
                 File::move($stubFileFullNameWithPath, $phpFileFullNameWithPath);
             }
-            $this->info('User publish');
+            $this->info($name.' publish');
+            return true;
         }
+        $this->error('Module '.$name.' already exists');
     }
 }
