@@ -5,6 +5,7 @@ namespace Sedehi\LaravelStarterKit\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use Symfony\Component\Process\Process;
 
 class VendorPublishCommand extends Command
 {
@@ -37,13 +38,14 @@ class VendorPublishCommand extends Command
         $this->call('vendor:publish', ['--provider' => 'Sedehi\LaravelTools\LaravelToolsServiceProvider']);
         $this->call('vendor:publish', ['--provider' => 'Laravel\Horizon\HorizonServiceProvider']);
         $this->call('vendor:publish', ['--tag' => 'log-viewer-config']);
-        $this->call(PublishModuleCommand::class,['name' => 'User']);
-        $this->call(PublishModuleCommand::class,['name' => 'Auth']);
+        $this->call(PublishModuleCommand::class, ['name' => 'User']);
+        $this->call(PublishModuleCommand::class, ['name' => 'Auth']);
         $this->call(UpdateTablerSidebar::class);
 
         $this->call('module:install');
         $this->makeAdminRouteAndController();
         $this->publishCrudViews();
+        (new Process([base_path('./vendor/bin/pint')]))->run();
     }
 
     /**

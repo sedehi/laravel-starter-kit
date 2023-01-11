@@ -25,15 +25,16 @@ class PublishModuleCommand extends Command
     public function handle()
     {
         $name = ucfirst($this->argument('name'));
-        if (!File::isDirectory(app_path('Modules/'.$name))) {
-            File::copyDirectory(__DIR__ . '/../stubs/modules/'.$name.'/', app_path('Modules/'.$name));
+        if (! File::isDirectory(app_path('Modules/'.$name))) {
+            File::copyDirectory(__DIR__.'/../stubs/modules/'.$name.'/', app_path('Modules/'.$name));
             $files = File::allFiles(app_path('modules/'.$name));
             foreach ($files as $file) {
-                $stubFileFullNameWithPath = app_path('Modules/'.$name.'/' . $file->getRelativePathname());
+                $stubFileFullNameWithPath = app_path('Modules/'.$name.'/'.$file->getRelativePathname());
                 $phpFileFullNameWithPath = Str::replace('.stub', '.php', $stubFileFullNameWithPath);
                 File::move($stubFileFullNameWithPath, $phpFileFullNameWithPath);
             }
             $this->info($name.' publish');
+
             return true;
         }
         $this->error('Module '.$name.' already exists');
