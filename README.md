@@ -23,37 +23,11 @@ You can install the package via composer:
 composer require sedehi/laravel-starter-kit
 ```
 
-You can publish and run the migrations with:
+You can install and publish with:
 
 ```bash
-php artisan vendor:publish --tag="laravel-starter-kit-migrations"
-php artisan migrate
-```
-
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --tag="laravel-starter-kit-config"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="laravel-starter-kit-views"
-```
-
-## Usage
-
-```php
-$laravelStarterKit = new Sedehi\LaravelStarterKit();
-echo $laravelStarterKit->echoPhrase('Hello, Sedehi!');
+php artisan starter-kit:install
+php artisan starter-kit:vendor-publish
 ```
 
 ## Testing

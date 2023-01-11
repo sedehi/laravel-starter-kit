@@ -13,7 +13,7 @@ class PublishUserSectionCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'starter-install:publish-user-section';
+    protected $signature = 'starter-kit:publish-user-section';
 
     protected $hidden = true;
 

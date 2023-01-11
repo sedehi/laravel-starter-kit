@@ -12,7 +12,7 @@ class InstallCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'starter-install';
+    protected $signature = 'starter-kit:install';
 
     /**
      * The console command description.

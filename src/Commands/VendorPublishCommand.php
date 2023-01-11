@@ -13,7 +13,7 @@ class VendorPublishCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'starter-install:vendor-publish';
+    protected $signature = 'starter-kit:vendor-publish';
 
     /**
      * The console command description.

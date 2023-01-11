@@ -12,7 +12,7 @@ class UpdateTablerSidebar extends Command
      *
      * @var string
      */
-    protected $signature = 'starter-install:update-tabler-sidebar';
+    protected $signature = 'starter-kit:update-tabler-sidebar';
 
     protected $hidden = true;
 
