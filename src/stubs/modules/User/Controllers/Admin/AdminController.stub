@@ -13,7 +13,7 @@ class AdminController extends Controller
 
     public function index()
     {
-        $items = Admin::with('roles')->latest()->filter()->paginate(10);
+        $items = Admin::latest()->filter()->paginate(10);
 
         $roles = $this->roles()->pluck('title', 'id')->prepend('...', '');
 
@@ -49,11 +49,11 @@ class AdminController extends Controller
         return view('crud.edit', compact('item', 'roles', 'relatedRoles'));
     }
 
-
-    public function show($id){
+    public function show($id)
+    {
         $item = Admin::withTrashed()->findOrFail($id);
 
-        return view('User::admin.admin.show',compact('item'));
+        return view('User::admin.admin.show', compact('item'));
     }
 
     public function update(AdminRequest $request, $id)
@@ -69,6 +69,7 @@ class AdminController extends Controller
         }
         $item->save();
         $item->roles()->sync($request->get('role'));
+
         return redirect()->route('admin.admins.index')->with('success', trans('admin.saved'));
     }
 

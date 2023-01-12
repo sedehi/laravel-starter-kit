@@ -116,15 +116,16 @@ class VendorPublishCommand extends Command
     private function publishFaLang(): void
     {
         $path = base_path('lang/fa');
-        if (! File::isDirectory($path)) {
+        if (!File::isDirectory($path)) {
             File::makeDirectory($path);
-            File::copyDirectory(__DIR__.'/../stubs/lang/fa', $path);
-            $files = File::allFiles($path);
-            foreach ($files as $file) {
-                $stubFileFullNameWithPath = $path.'/'.$file->getRelativePathname();
-                $phpFileFullNameWithPath = Str::replace('.stub', '.php', $stubFileFullNameWithPath);
-                File::move($stubFileFullNameWithPath, $phpFileFullNameWithPath);
-            }
+        }
+
+        File::copyDirectory(__DIR__ . '/../stubs/lang/fa', $path);
+        $files = File::allFiles($path);
+        foreach ($files as $file) {
+            $stubFileFullNameWithPath = $path . '/' . $file->getRelativePathname();
+            $phpFileFullNameWithPath = Str::replace('.stub', '.php', $stubFileFullNameWithPath);
+            File::move($stubFileFullNameWithPath, $phpFileFullNameWithPath);
         }
     }
 
