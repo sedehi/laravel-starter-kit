@@ -2,8 +2,8 @@
 
 namespace App\Modules\User\Requests\Admin;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class AdminRequest extends FormRequest
 {
@@ -17,36 +17,29 @@ class AdminRequest extends FormRequest
         switch ($this->route()->getActionMethod()) {
             case 'destroy':
                 return [
-                    'deleteId' => 'required|array',
+                    'id' => 'required|array',
                 ];
             case 'store':
                 return [
                     'first_name' => 'required|max:190',
-                    'last_name'  => 'required|max:190',
-                    'email'      => ['required', 'email', Rule::unique('admins')->whereNull('deleted_at'), 'max:150'],
-                    'password'   => 'required|min:6|max:150',
-                    'role'       => 'required|array|min:1',
+                    'last_name' => 'required|max:190',
+                    'email' => ['required', 'email', Rule::unique('admins')->whereNull('deleted_at'), 'max:150'],
+                    'password' => 'required|min:6|max:150',
                 ];
             case 'update':
                 return [
                     'first_name' => 'required|max:190',
-                    'last_name'  => 'required|max:190',
-                    'email'      => [
+                    'last_name' => 'required|max:190',
+                    'email' => [
                         'required',
                         'email',
                         Rule::unique('admins')->ignore($this->route()->parameter('admin'))->whereNull('deleted_at'),
                         'max:150',
                     ],
                     'password' => 'nullable|min:6|max:150',
-                    'role'     => 'required|array|min:1',
                 ];
         }
 
         return [];
-    }
-
-    public function messages()
-    {
-        return ['role.required' => trans('admin.validation.role.required')];
     }
 }

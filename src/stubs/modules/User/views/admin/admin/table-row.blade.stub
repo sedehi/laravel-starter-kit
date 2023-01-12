@@ -1,0 +1,2 @@
+<td>{{$item->full_name}}</td>
+<td>{{$item->created_at->toJalali()->format('Y-m-d H:i')}}</td>

@@ -3,4 +3,4 @@
 use App\Modules\User\Controllers\Admin\AdminController;
 use Illuminate\Support\Facades\Route;
 
-Route::resource('admins', AdminController::class);
+Route::resource('admins', AdminController::class)->names('admins');

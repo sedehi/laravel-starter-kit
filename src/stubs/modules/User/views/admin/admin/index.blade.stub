@@ -2,13 +2,19 @@
 @section('table')
     <div class="col-12">
         <x-tabler::table :items="$items"
-            :headers="['full name','roles','created at','....']"
+            :headers="[trans('validation.attributes.fullname'),trans('validation.attributes.created_at'),'....']"
             fields="User::admin.admin.table-row"
             :links="[
 				[
 				'title' => trans('admin.edit'),
 				'url' => function($item){
                     return route('admin.admins.edit',$item->id);
+ 				    }
+                 ],
+                 [
+				'title' => trans('admin.detail'),
+				'url' => function($item){
+                    return route('admin.admins.show',$item->id);
  				    }
                  ],
 			]"

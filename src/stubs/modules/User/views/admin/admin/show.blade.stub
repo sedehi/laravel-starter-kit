@@ -1,0 +1,19 @@
+@extends('crud.show')
+@section('table-rows')
+    <tr>
+        <td>@lang('validation.attributes.first_name')</td>
+        <td>{{$item->first_name}}</td>
+    </tr>
+    <tr>
+        <td>@lang('validation.attributes.last_name')</td>
+        <td>{{$item->last_name}}</td>
+    </tr>
+    <tr>
+        <td>@lang('validation.attributes.email')</td>
+        <td>{{$item->email}}</td>
+    </tr>
+    <tr>
+        <td>@lang('validation.attributes.created_at')</td>
+        <td>{{$item->created_at->toJalali()}}</td>
+    </tr>
+@endsection

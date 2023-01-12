@@ -3,9 +3,9 @@
 namespace App\Modules\User\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Role\Models\Role;
 use App\Modules\User\Models\Admin;
 use App\Modules\User\Requests\Admin\AdminRequest;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
@@ -13,42 +13,47 @@ class AdminController extends Controller
 
     public function index()
     {
-        $items = Admin::with('roles')->latest('id')->paginate(10);
+        $items = Admin::with('roles')->latest()->filter()->paginate(10);
 
         $roles = $this->roles()->pluck('title', 'id')->prepend('...', '');
 
-        return view('User::admin.' . self::$viewForm . '.index', compact('items', 'roles'));
+        return view('User::admin.'.self::$viewForm.'.index', compact('items', 'roles'));
     }
 
     public function create()
     {
         $roles = $this->roles();
 
-        return view('vendor.section.create', compact('roles'));
+        return view('crud.create', compact('roles'));
     }
 
     public function store(AdminRequest $request)
     {
         $item = Admin::create([
             'first_name' => $request->get('first_name'),
-            'last_name'  => $request->get('last_name'),
-            'email'      => $request->get('email'),
-            'password'   => bcrypt($request->get('password')),
+            'last_name' => $request->get('last_name'),
+            'email' => $request->get('email'),
+            'password' => bcrypt($request->get('password')),
         ]);
         $item->roles()->attach($request->get('role'));
 
-        return redirect()
-            ->action([self::class, 'index'])
-            ->with('success', trans('admin.saved'));
+        return redirect()->route('admin.admins.index')->with('success', trans('admin.saved'));
     }
 
     public function edit($id)
     {
-        $item         = Admin::withTrashed()->findOrFail($id);
-        $roles        = $this->roles();
+        $item = Admin::withTrashed()->findOrFail($id);
+        $roles = $this->roles();
         $relatedRoles = $item->roles()->allRelatedIds()->toArray();
 
-        return view('vendor.section.edit', compact('item', 'roles', 'relatedRoles'));
+        return view('crud.edit', compact('item', 'roles', 'relatedRoles'));
+    }
+
+
+    public function show($id){
+        $item = Admin::withTrashed()->findOrFail($id);
+
+        return view('User::admin.admin.show',compact('item'));
     }
 
     public function update(AdminRequest $request, $id)
@@ -56,25 +61,22 @@ class AdminController extends Controller
         $item = Admin::withTrashed()->findOrFail($id);
         $item->fill([
             'first_name' => $request->get('first_name'),
-            'last_name'  => $request->get('last_name'),
-            'email'      => $request->get('email'),
+            'last_name' => $request->get('last_name'),
+            'email' => $request->get('email'),
         ]);
         if ($request->filled('password')) {
             $item->password = bcrypt($request->get('password'));
         }
         $item->save();
         $item->roles()->sync($request->get('role'));
-
-        return redirect()
-            ->action([self::class, 'index'])
-            ->with('success', trans('admin.saved'));
+        return redirect()->route('admin.admins.index')->with('success', trans('admin.saved'));
     }
 
     public function destroy(AdminRequest $request)
     {
-        Admin::whereIn('id', $request->get('deleteId'))->get()->each->delete();
+        Admin::whereIn('id', $request->get('id'))->get()->each->delete();
 
-        return redirect()->action([self::class, 'index'], $request->query())->with('success', trans('admin.deleted'));
+        return redirect()->route('admin.admins.index', $request->query())->with('success', trans('admin.deleted'));
     }
 
     protected function roles()
