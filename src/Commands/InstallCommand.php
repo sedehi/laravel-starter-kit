@@ -28,17 +28,21 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        app()->make(Composer::class)->run(['require', 'spatie/laravel-permission' ,'intervention/image','sedehi/filterable']);
-//        app()->make(Composer::class)->run(['require', 'intervention/image']);
-//        app()->make(Composer::class)->run(['require', 'sedehi/filterable']);
-        app()->make(Composer::class)->run(['require', 'sedehi/uploadable']);
-        app()->make(Composer::class)->run(['require', 'sedehi/laravel-tabler']);
-        app()->make(Composer::class)->run(['require', 'sedehi/laravel-tools']);
-        app()->make(Composer::class)->run(['require', 'laravel/horizon']);
-        app()->make(Composer::class)->run(['require', 'sedehi/laravel-module']);
-        app()->make(Composer::class)->run(['require', 'barryvdh/laravel-debugbar', '--dev']);
-        app()->make(Composer::class)->run(['require', 'opcodesio/log-viewer', '--dev']);
-        app()->make(Composer::class)->run(['require', 'laravel/pint', '--dev']);
+        app()->make(Composer::class)->run(['require',
+            'spatie/laravel-permission',
+            'intervention/image',
+            'sedehi/filterable',
+            'sedehi/uploadable',
+            'sedehi/laravel-tabler',
+            'sedehi/laravel-tools',
+            'laravel/horizon',
+            'sedehi/laravel-module',
+        ]);
+        app()->make(Composer::class)->run(['require', 'barryvdh/laravel-debugbar',
+            'opcodesio/log-viewer',
+            'laravel/pint',
+            '--dev'
+        ]);
         $this->info(' run starter-kit:vendor-publish command');
     }
 }
