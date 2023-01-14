@@ -172,12 +172,13 @@ class VendorPublishCommand extends Command
         $eol = $this->EOL($config);
         if (! Arr::has($moduleConfigData, 'allowed_routes')) {
             $config = str_replace(
-                "'allowed_routes' => [".$eol,
-                "'admin.home',.$eol
-                ],".$eol,
+                '];',
+                "'allowed_routes' => [".$eol.
+                "'admin.home',".$eol.
+                '],'.$eol
+                .'];'.$eol,
                 $config
             );
-
             file_put_contents($configPath, $config);
         }
     }
