@@ -8,11 +8,9 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageServiceProviderLaravelRecent;
 use Laravel\Horizon\HorizonServiceProvider;
-use Okipa\LaravelFormComponents\LaravelFormComponentsServiceProvider;
 use Sedehi\Filterable\FilterableServiceProvider;
 use Sedehi\LaravelModule\LaravelModuleServiceProvider;
 use Sedehi\LaravelTools\LaravelToolsServiceProvider;
-use Sedehi\Tabler\TablerServiceProvider;
 use Spatie\Permission\PermissionServiceProvider;
 use Symfony\Component\Process\Process;
 
@@ -180,13 +178,14 @@ class VendorPublishCommand extends Command
             file_put_contents($configPath, $config);
         }
     }
+
      private function publishPermissionMiddleware()
-    {
-        $middlewarePath = app_path('Http/Middleware/CheckPermissionByRouteName.php');
-        if(!File::exists($middlewarePath)){
-            File::copy(__DIR__.'/../stubs/Middleware/CheckPermissionByRouteName.stub',$middlewarePath);
-        }
-    }
+     {
+         $middlewarePath = app_path('Http/Middleware/CheckPermissionByRouteName.php');
+         if (! File::exists($middlewarePath)) {
+             File::copy(__DIR__.'/../stubs/Middleware/CheckPermissionByRouteName.stub', $middlewarePath);
+         }
+     }
 
     private function EOL(string $routeServiceProvider)
     {
