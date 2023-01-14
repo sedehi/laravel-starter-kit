@@ -48,6 +48,7 @@ class VendorPublishCommand extends Command
         $this->call('vendor:publish', ['--provider' => HorizonServiceProvider::class]);
         $this->call('vendor:publish', ['--tag' => 'log-viewer-config']);
         $this->call('vendor:publish', ['--tag' => 'tabler-index']);
+        $this->call('vendor:publish', ['--tag' => 'tabler-lang']);
         $this->call(PublishModuleCommand::class, ['name' => 'Auth']);
         $this->call(PublishModuleCommand::class, ['name' => 'Role']);
         $this->call(PublishModuleCommand::class, ['name' => 'User']);
