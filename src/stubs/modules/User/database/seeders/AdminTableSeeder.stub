@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Modules\User\database\seeds;
+namespace App\Modules\User\Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Modules\User\Models\Admin;
+use Illuminate\Database\Seeder;
 
 class AdminTableSeeder extends Seeder
 {
@@ -14,11 +14,11 @@ class AdminTableSeeder extends Seeder
      */
     public function run()
     {
-        $item             = new Admin();
+        $item = new Admin();
         $item->first_name = 'admin';
-        $item->last_name  = '';
-        $item->email      = 'admin@admin.com';
-        $item->password   = bcrypt('12345678');
+        $item->last_name = '';
+        $item->email = 'admin@admin.com';
+        $item->password = bcrypt('12345678');
         $item->save();
     }
 }

@@ -1,0 +1,30 @@
+<?php
+
+namespace App\Modules\Role\Requests\Admin;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class RoleRequest extends FormRequest
+{
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        switch ($this->route()->getActionMethod()) {
+            case 'destroy':
+                return [
+                    'id' => 'required|array',
+                ];
+            case 'store':
+            case 'update':
+                return [
+                    'name' => 'required',
+                ];
+            default:
+                return [];
+        }
+    }
+}

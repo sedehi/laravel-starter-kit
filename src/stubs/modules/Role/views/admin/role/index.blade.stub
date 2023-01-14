@@ -1,0 +1,17 @@
+@extends('crud.index')
+@section('table')
+    <div class="col-12">
+        <x-tabler::table :items="$items"
+                         :headers="[trans('validation.attributes.title'),trans('validation.attributes.created_at'),'....']"
+                         fields="Role::admin.role.table-row"
+                         :links="[
+				[
+				'title' => trans('admin.edit'),
+				'url' => function($item){
+                    return route('admin.role.edit',$item->id);
+ 				    }
+                 ],
+			]"
+        />
+    </div>
+@endsection

@@ -14,7 +14,7 @@ class LoginController extends Controller
     public function login()
     {
         $credentials = request()->only(['email', 'password']);
-        $login = auth('admin')->attempt($credentials);
+        $login = auth(config('module.admin_guard'))->attempt($credentials);
         if ($login) {
             request()->session()->regenerate();
             if (request()->has('return')) {
@@ -25,13 +25,13 @@ class LoginController extends Controller
         }
 
         return back()->withInput()->withErrors([
-            'error' => trans('auth.failed')
+            'error' => trans('auth.failed'),
         ]);
     }
 
     public function logout()
     {
-        auth('admin')->logout();
+        auth(config('module.admin_guard'))->logout();
 
         return redirect()->route('admin.login.form');
     }

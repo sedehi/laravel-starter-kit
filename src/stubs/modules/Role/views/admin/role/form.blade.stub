@@ -1,0 +1,87 @@
+<div class="row">
+    <x:form::input name="name"/>
+    <x:form::checkbox name="select_all" id="select_all"/>
+</div>
+<hr>
+@foreach($permissions->groupBy('module_name') as  $module => $permissions)
+    <div class="col-md-12">
+        <div class="row justify-content-between">
+            <h4 class="row justify-content-start">{{ $module }}</h4>
+            <div class="row justify-content-end">
+                <x:form::checkbox name="select_this_part" class="checkPart" id="checkPart{{$module}}" data-part="{{$module}}"/>
+            </div>
+        </div>
+        <br>
+        <div class="row {{ $module }}">
+            @foreach($permissions as $permission)
+                <div class="col-md-3">
+                    <x:form::checkbox
+                        name="permissions[]"
+                        value="{{$permission->id}}"
+                        class="{{$module}}"
+                        :label="trans('permissions.'.$permission->name)"
+                        id="check{{$permission->id}}"
+                        :checked="isset($item) && !is_null($item->permissions->where('id',$permission->id)->first())"
+                        data-multiple-class="{{$permission->name}}"/>
+                </div>
+            @endforeach
+        </div>
+    </div>
+    <hr>
+@endforeach
+
+@push('js')
+    <script>
+        $(document).ready(function () {
+            $("#select_all").on('change', function () {
+                if ($(this).is(':checked')) {
+                    $.each($("input"), function (index, value) {
+                        if (value.type == 'checkbox') {
+                            $(this).prop("checked", true);
+                        }
+                    })
+
+                } else {
+                    $.each($("input"), function (index, value) {
+                        if (value.type == 'checkbox') {
+                            $(this).prop("checked", false);
+                        }
+                    })
+                }
+            });
+
+            $('.checkPart').on('change', function () {
+                if ($(this).is(':checked')) {
+                    var className = $(this).attr('data-part');
+                    $.each($('.' + className + " input"), function (index, value) {
+                        if (value.type == 'checkbox') {
+                            $(this).prop("checked", true);
+
+                        }
+                    });
+                } else {
+                    var className = $(this).attr('data-part');
+                    $.each($('.' + className + " input"), function (index, value) {
+                        if (value.type == 'checkbox') {
+                            $(this).prop("checked", false);
+
+                        }
+                    });
+                }
+
+            });
+
+            $("input[type=checkbox]").on('change', function () {
+                var multipleClass = $(this).data('multiple-class');
+                if (multipleClass !== undefined) {
+                    if ($(this).is(':checked')) {
+                        $('.'+multipleClass).prop("checked",true);
+                    } else {
+                        $('.'+multipleClass).prop("checked",false);
+                    }
+                }
+            });
+        })
+        ;
+    </script>
+@endpush

@@ -1,0 +1,12 @@
+<?php
+return [
+    'admin.role.index' => 'لیست گروه کاربری',
+    'admin.role.edit' => 'ویرایش گروه کاربری',
+    'admin.role.create' => 'ایجاد گروه کاربری',
+    'admin.role.destroy' => 'حذف گروه کاربری',
+    'admin.user.index' => 'لیست کاربران',
+    'admin.user.show' => 'نمایش کاربر',
+    'admin.user.edit' => 'ویرایش کاربران',
+    'admin.user.create' => 'ایجاد کاربران',
+    'admin.user.destroy' => 'حذف کاربران',
+];

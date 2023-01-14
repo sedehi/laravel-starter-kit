@@ -6,6 +6,6 @@ class AdminController extends Controller
 {
     public function __invoke()
     {
-        return view('tabler::index');
+        return view('admin.index');
     }
 }

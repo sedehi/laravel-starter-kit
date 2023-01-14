@@ -1,10 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Database\Schema\Blueprint;
+use App\Modules\User\Database\Seeders\AdminPermissionSeeder;
+use App\Modules\User\Database\Seeders\AdminTableSeeder;
 use Illuminate\Database\Migrations\Migration;
-use App\Modules\User\database\seeds\AdminTableSeeder;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schema;
 
 class CreateAdminsTable extends Migration
 {
@@ -28,6 +29,10 @@ class CreateAdminsTable extends Migration
 
         Artisan::call('db:seed', [
             '--class' => AdminTableSeeder::class,
+            '--force' => true,
+        ]);
+        Artisan::call('db:seed', [
+            '--class' => AdminPermissionSeeder::class,
             '--force' => true,
         ]);
     }

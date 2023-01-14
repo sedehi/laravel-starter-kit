@@ -35,9 +35,9 @@ class InstallCommand extends Command
         app()->make(Composer::class)->run(['require', 'sedehi/laravel-tabler']);
         app()->make(Composer::class)->run(['require', 'sedehi/laravel-tools']);
         app()->make(Composer::class)->run(['require', 'laravel/horizon']);
+        app()->make(Composer::class)->run(['require', 'sedehi/laravel-module']);
         app()->make(Composer::class)->run(['require', 'barryvdh/laravel-debugbar', '--dev']);
         app()->make(Composer::class)->run(['require', 'opcodesio/log-viewer', '--dev']);
-        app()->make(Composer::class)->run(['require', 'sedehi/laravel-module']);
         app()->make(Composer::class)->run(['require', 'laravel/pint', '--dev']);
         $this->info(' run starter-kit:vendor-publish command');
     }

@@ -9,15 +9,12 @@ use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
-    public static $viewForm = 'admin';
-
     public function index()
     {
         $items = Admin::latest()->filter()->paginate(10);
+        $roles = $this->roles()->pluck('name', 'id')->prepend('...', '');
 
-        $roles = $this->roles()->pluck('title', 'id')->prepend('...', '');
-
-        return view('User::admin.'.self::$viewForm.'.index', compact('items', 'roles'));
+        return view('User::admin.admin.index', compact('items', 'roles'));
     }
 
     public function create()
@@ -35,7 +32,7 @@ class AdminController extends Controller
             'email' => $request->get('email'),
             'password' => bcrypt($request->get('password')),
         ]);
-        $item->roles()->attach($request->get('role'));
+        $item->assignRole($request->get('roles'));
 
         return redirect()->route('admin.admins.index')->with('success', trans('admin.saved'));
     }
@@ -43,10 +40,9 @@ class AdminController extends Controller
     public function edit($id)
     {
         $item = Admin::withTrashed()->findOrFail($id);
+        $item->roles = $item->roles->pluck('id')->toArray();
         $roles = $this->roles();
-        $relatedRoles = $item->roles()->allRelatedIds()->toArray();
-
-        return view('crud.edit', compact('item', 'roles', 'relatedRoles'));
+        return view('crud.edit', compact('item', 'roles'));
     }
 
     public function show($id)
@@ -68,7 +64,7 @@ class AdminController extends Controller
             $item->password = bcrypt($request->get('password'));
         }
         $item->save();
-        $item->roles()->sync($request->get('role'));
+        $item->syncRoles($request->get('roles'));
 
         return redirect()->route('admin.admins.index')->with('success', trans('admin.saved'));
     }
@@ -82,6 +78,6 @@ class AdminController extends Controller
 
     protected function roles()
     {
-        return Role::all();
+        return Role::where('guard_name',config('module.admin_guard'))->get();
     }
 }

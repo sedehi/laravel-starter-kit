@@ -1,6 +1,7 @@
 <div class="row">
-    <x:form::input placeholder="first name" name="first_name"/>
-    <x:form::input placeholder="last name" name="last_name"/>
-    <x:form::input placeholder="password" type="password" name="password" value=""/>
-    <x:form::input placeholder="email" name="email"/>
+    <x:form::input name="first_name"/>
+    <x:form::input name="last_name"/>
+    <x:form::input type="password" name="password" value=""/>
+    <x:form::input name="email"/>
+    <x:form::checkbox name="roles" :group="$roles->pluck('name','id')->toArray()" inline/>
 </div>

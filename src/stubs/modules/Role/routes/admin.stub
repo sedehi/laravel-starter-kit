@@ -1,0 +1,6 @@
+<?php
+
+use App\Modules\Role\Controllers\Admin\RoleController;
+use Illuminate\Support\Facades\Route;
+
+Route::resource('roles', RoleController::class)->except('show')->names('role');

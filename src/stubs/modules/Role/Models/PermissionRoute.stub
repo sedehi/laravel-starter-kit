@@ -1,0 +1,22 @@
+<?php
+
+namespace App\Modules\Role\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class PermissionRoute extends Model
+{
+    public $table = 'permission_routes';
+
+    protected $fillable = [
+        'permission_id',
+        'name'
+    ];
+
+
+    public function permission()
+    {
+        return $this->belongsTo(Permission::class);
+    }
+}

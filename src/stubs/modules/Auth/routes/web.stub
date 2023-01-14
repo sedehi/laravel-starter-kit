@@ -3,9 +3,8 @@
 use App\Modules\Auth\Controllers\Admin\LoginController;
 use Illuminate\Support\Facades\Route;
 
-Route::domain(config('module.domain.admin'))->name('admin.')->prefix(config('module.admin_path'))->group(function (){
+Route::domain(config('module.domain.admin'))->name('admin.')->prefix(config('module.admin_path'))->group(function () {
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login.form');
     Route::post('login', [LoginController::class, 'login'])->name('login');
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 });
-

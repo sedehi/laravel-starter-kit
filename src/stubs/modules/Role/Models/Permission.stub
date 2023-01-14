@@ -1,0 +1,64 @@
+<?php
+
+namespace App\Modules\Role\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+
+class Permission extends \Spatie\Permission\Models\Permission
+{
+
+    public function getModuleNameAttribute(){
+       return Str::of($this->name)->ltrim('admin.')->before('.');
+    }
+
+    public function routes(){
+        return $this->hasMany(PermissionRoute::class);
+    }
+
+    public static function createWithRoute($permissions){
+        foreach ($permissions as $permission) {
+            $item =  self::firstOrCreate(['guard_name' => config('module.admin_guard'), 'name' =>$permission['name']]);
+            if(isset($permission['routes'])){
+                foreach ($permission['routes'] as $route){
+                    $item->routes()->firstOrCreate(['name' => $route]);
+                }
+            }else{
+                $item->routes()->firstOrCreate(['name' => $permission['name']]);
+            }
+        }
+    }
+
+
+    public static function generateCrudPermissionForModule($name,$appends = []){
+        $permissions = [
+            [
+                'name' => 'admin.'.$name.'.index',
+            ],
+            [
+                'name' => 'admin.'.$name.'.destroy',
+            ],
+            [
+                'name' => 'admin.'.$name.'.show',
+            ],
+            [
+                'name' => 'admin.'.$name.'.edit',
+                'routes' => [
+                    'admin.'.$name.'.edit',
+                    'admin.'.$name.'.update',
+                ]
+            ],
+            [
+                'name' => 'admin.'.$name.'.create',
+                'routes' => [
+                    'admin.'.$name.'.create',
+                    'admin.'.$name.'.store',
+                ]
+            ],
+        ];
+
+        return array_merge($permissions,$appends);
+    }
+
+}

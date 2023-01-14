@@ -20,7 +20,7 @@ We highly appreciate you sending us a postcard from your hometown, mentioning wh
 You can install the package via composer:
 
 ```bash
-composer require sedehi/laravel-starter-kit
+composer require sedehi/laravel-starter-kit --dev
 ```
 
 You can install and publish with:
