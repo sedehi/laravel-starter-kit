@@ -42,14 +42,15 @@ class VendorPublishCommand extends Command
         $this->call('vendor:publish', ['--provider' => PermissionServiceProvider::class]);
         $this->call('vendor:publish', ['--provider' => ImageServiceProviderLaravelRecent::class]);
         $this->call('vendor:publish', ['--provider' => FilterableServiceProvider::class]);
-        $this->call('vendor:publish', ['--provider' => TablerServiceProvider::class]);
-        $this->call('vendor:publish', ['--provider' => LaravelFormComponentsServiceProvider::class]);
+        $this->call('vendor:publish', ['--tag' => 'tabler-assets']);
+        $this->call('vendor:publish', ['--tag' => 'form-components:config']);
         $this->call('vendor:publish', ['--provider' => LaravelToolsServiceProvider::class]);
         $this->call('vendor:publish', ['--provider' => LaravelModuleServiceProvider::class]);
         $this->call('vendor:publish', ['--provider' => HorizonServiceProvider::class]);
         $this->call('vendor:publish', ['--tag' => 'log-viewer-config']);
-        $this->call(PublishModuleCommand::class, ['name' => 'User']);
         $this->call(PublishModuleCommand::class, ['name' => 'Auth']);
+        $this->call(PublishModuleCommand::class, ['name' => 'Role']);
+        $this->call(PublishModuleCommand::class, ['name' => 'User']);
         $this->call(UpdateTablerSidebar::class);
 
         $this->call('module:install');
@@ -58,6 +59,8 @@ class VendorPublishCommand extends Command
         $this->publishAuthViews();
         $this->publishFaLang();
         $this->updateAuthConfig();
+        $this->updateModuleConfig();
+        $this->publishPermissionMiddleware();
         (new Process([base_path('./vendor/bin/pint')]))->run();
     }
 
@@ -157,6 +160,31 @@ class VendorPublishCommand extends Command
         ],".$eol,
                 $authConfig
             ));
+        }
+    }
+
+    private function updateModuleConfig()
+    {
+        $moduleConfigData = config('module');
+        $configPath = config_path('module.php');
+        $config = file_get_contents($configPath);
+        $eol = $this->EOL($config);
+        if (! Arr::has($moduleConfigData, 'allowed_routes')) {
+            $config = str_replace(
+                "'allowed_routes' => [".$eol,
+                "'admin.home',.$eol
+                ],".$eol,
+                $config
+            );
+
+            file_put_contents($configPath, $config);
+        }
+    }
+     private function publishPermissionMiddleware()
+    {
+        $middlewarePath = app_path('Http/Middleware/CheckPermissionByRouteName.php');
+        if(!File::exists($middlewarePath)){
+            File::copy(__DIR__.'/../stubs/Middleware/CheckPermissionByRouteName.stub',$middlewarePath);
         }
     }
 
