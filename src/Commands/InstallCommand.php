@@ -41,7 +41,7 @@ class InstallCommand extends Command
         app()->make(Composer::class)->run(['require', 'barryvdh/laravel-debugbar',
             'opcodesio/log-viewer',
             'laravel/pint',
-            '--dev'
+            '--dev',
         ]);
         $this->info(' run starter-kit:vendor-publish command');
     }
