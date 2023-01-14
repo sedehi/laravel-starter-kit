@@ -1,0 +1,38 @@
+<?php
+
+
+use Closure;
+use Illuminate\Http\Request;
+
+class CheckPermissionByRouteName
+{
+
+    private $allowedRoutes = [
+        'admin.home'
+    ];
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     */
+    public function handle(Request $request, Closure $next)
+    {
+        $currentRouteName = request()->route()->getName();
+        if(in_array($currentRouteName,$this->allowedRoutes)){
+            return $next($request);
+
+        }
+        $checkPermission = auth('admins')
+            ->user()
+            ->whereHas('roles.permissions.routes',function($query) use($currentRouteName){
+            $query->where('name',$currentRouteName);
+        })->first();
+        if(is_null($checkPermission)){
+            abort(403);
+        }
+        return $next($request);
+
+    }
+}
