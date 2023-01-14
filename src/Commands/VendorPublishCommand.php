@@ -47,6 +47,7 @@ class VendorPublishCommand extends Command
         $this->call('vendor:publish', ['--provider' => LaravelModuleServiceProvider::class]);
         $this->call('vendor:publish', ['--provider' => HorizonServiceProvider::class]);
         $this->call('vendor:publish', ['--tag' => 'log-viewer-config']);
+        $this->call('vendor:publish', ['--tag' => 'tabler-index']);
         $this->call(PublishModuleCommand::class, ['name' => 'Auth']);
         $this->call(PublishModuleCommand::class, ['name' => 'Role']);
         $this->call(PublishModuleCommand::class, ['name' => 'User']);
@@ -60,6 +61,7 @@ class VendorPublishCommand extends Command
         $this->updateAuthConfig();
         $this->updateModuleConfig();
         $this->publishPermissionMiddleware();
+        $this->replaceSpatiePermissionModel();
         (new Process([base_path('./vendor/bin/pint')]))->run();
     }
 
@@ -180,7 +182,7 @@ class VendorPublishCommand extends Command
         }
     }
 
-    private function removeSpatiePermissionModel()
+    private function replaceSpatiePermissionModel()
     {
         $configPath = config_path('permission.php');
         $config = file_get_contents($configPath);
