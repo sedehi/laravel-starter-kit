@@ -38,6 +38,7 @@ class VendorPublishCommand extends Command
     public function handle()
     {
         $this->call('vendor:publish', ['--provider' => PermissionServiceProvider::class]);
+        File::delete(glob(database_path('migrations/*create_permission_tables.php')));
         $this->call('vendor:publish', ['--provider' => ImageServiceProviderLaravelRecent::class]);
         $this->call('vendor:publish', ['--provider' => FilterableServiceProvider::class]);
         $this->call('vendor:publish', ['--tag' => 'tabler-assets']);
@@ -177,6 +178,17 @@ class VendorPublishCommand extends Command
 
             file_put_contents($configPath, $config);
         }
+    }
+
+    private function removeSpatiePermissionModel()
+    {
+        $configPath = config_path('permission.php');
+        $config = file_get_contents($configPath);
+        file_put_contents(config_path('permission.php'), Str::replace(
+            'Spatie\Permission\Models\Permission::class',
+            '\App\Modules\Role\Models\Permission::class',
+            $config
+        ));
     }
 
      private function publishPermissionMiddleware()
