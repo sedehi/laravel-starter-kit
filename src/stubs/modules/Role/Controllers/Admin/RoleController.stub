@@ -3,17 +3,16 @@
 namespace App\Modules\Role\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Role\Requests\Admin\RoleRequest;
 use App\Modules\Role\Models\Permission;
+use App\Modules\Role\Requests\Admin\RoleRequest;
 use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
-
     public function index()
     {
         $items = Role::latest('id')->paginate(20);
-        $list  = Role::pluck('name', 'id');
+        $list = Role::pluck('name', 'id');
 
         return view('Role.views.admin.role.index', compact('items', 'list'));
     }
@@ -21,27 +20,29 @@ class RoleController extends Controller
     public function create()
     {
         $permissions = $this->permissions();
-        return view('crud.create',compact('permissions'));
+
+        return view('crud.create', compact('permissions'));
     }
 
     public function store(RoleRequest $request)
     {
-        $role = Role::create(['name' => $request->get('name'),'guard_name' => 'admins']);
-        $role->givePermissionTo($request->get('permissions'));
+        $role = Role::create(['name' => $request->get('name'), 'guard_name' => 'admin']);
+        $role->syncPermissions($request->get('permissions'));
+
         return redirect()->route('admin.role.index')->with('success', trans('admin.saved'));
     }
 
     public function edit($id)
     {
-        $item             = Role::findOrFail($id);
-        $permissions      = $this->permissions();
-        return view('crud.edit', compact('item','permissions'));
+        $item = Role::findOrFail($id);
+        $permissions = $this->permissions();
+        return view('crud.edit', compact('item', 'permissions'));
     }
 
     public function update(RoleRequest $request, $id)
     {
-        $role             = Role::findOrFail($id);
-        $role->name      = $request->get('name');
+        $role = Role::findOrFail($id);
+        $role->name = $request->get('name');
         $role->save();
         $role->syncPermissions($request->get('permissions'));
 
@@ -55,7 +56,8 @@ class RoleController extends Controller
         return back()->with('success', trans('admin.deleted'));
     }
 
-    private function permissions(){
-        return Permission::where('guard_name','admins')->get();
+    private function permissions()
+    {
+        return Permission::where('guard_name', 'admin')->get();
     }
 }
