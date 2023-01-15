@@ -1,4 +1,4 @@
 <div class="form-row">
-    <x:form::input placeholder="first name" name="first_name"/>
-    <x:form::input placeholder="email" name="email"/>
+    <x:form::input name="first_name"/>
+    <x:form::input name="email"/>
 </div>
