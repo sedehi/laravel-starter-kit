@@ -27,7 +27,7 @@ class PublishModuleCommand extends Command
         $name = ucfirst($this->argument('name'));
         if (! File::isDirectory(app_path('Modules/'.$name))) {
             File::copyDirectory(__DIR__.'/../stubs/modules/'.$name.'/', app_path('Modules/'.$name));
-            $files = File::allFiles(app_path('modules/'.$name));
+            $files = File::allFiles(app_path('Modules/'.$name));
             foreach ($files as $file) {
                 $stubFileFullNameWithPath = app_path('Modules/'.$name.'/'.$file->getRelativePathname());
                 $phpFileFullNameWithPath = Str::replace('.stub', '.php', $stubFileFullNameWithPath);
