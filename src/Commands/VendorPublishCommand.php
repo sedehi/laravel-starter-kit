@@ -217,9 +217,9 @@ class VendorPublishCommand extends Command
 
      private function publishAuthMiddleware()
      {
-         $middlewarePath = app_path('Http/Middleware/AuthenticateAdmin.php');
+         $middlewarePath = app_path('Http/Middleware/AuthenticateForAdmin.php');
          if (! File::exists($middlewarePath)) {
-             File::copy(__DIR__.'/../stubs/Middleware/AuthenticateAdmin.stub', $middlewarePath);
+             File::copy(__DIR__.'/../stubs/Middleware/AuthenticateForAdmin.stub', $middlewarePath);
          }
      }
 
