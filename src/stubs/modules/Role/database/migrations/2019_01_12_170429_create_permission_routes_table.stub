@@ -1,7 +1,10 @@
 <?php
 
+use App\Modules\Role\Database\Seeders\AdminPermissionSeeder;
+use App\Modules\User\Database\Seeders\RoleTableSeeder;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -19,6 +22,11 @@ return new class extends Migration
             $table->bigInteger('permission_id')->unsigned()->index();
             $table->timestamps();
         });
+
+        Artisan::call('db:seed',[
+            '--class' => AdminPermissionSeeder::class,
+            '--force' => true,
+        ]);
     }
 
     /**

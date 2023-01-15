@@ -2,8 +2,10 @@
 
 namespace App\Modules\User\Database\Seeders;
 
+use App\Modules\Role\Models\Permission;
 use App\Modules\User\Models\Admin;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class AdminTableSeeder extends Seeder
 {
@@ -20,5 +22,14 @@ class AdminTableSeeder extends Seeder
         $item->email = 'admin@admin.com';
         $item->password = bcrypt('12345678');
         $item->save();
+
+        $data = Role::findOrCreate(config('module.admin_guard'),config('module.admin_guard'));
+
+        $data->syncPermissions(Permission::all());
+        Admin::where('email', ['admin@admin.com'])->get()->each(function ($admin) use ($data) {
+            $admin->syncRoles($data);
+        });
+
+
     }
 }
