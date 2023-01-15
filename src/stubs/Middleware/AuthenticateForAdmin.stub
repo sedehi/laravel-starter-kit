@@ -1,10 +1,15 @@
 <?php
-
+namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
 class AuthenticateForAdmin extends Middleware
 {
+    protected function authenticate($request, array $guards)
+    {
+         parent::authenticate($request, [config('module.admin_guard')]);
+    }
+
     /**
      * Get the path the user should be redirected to when they are not authenticated.
      *
@@ -14,7 +19,7 @@ class AuthenticateForAdmin extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
-            return route('admin.home');
+            return route('admin.login.form');
         }
     }
 }

@@ -10,18 +10,10 @@
             <div class="card-body">
                 <h2 class="card-title text-center mb-4">{{config('app.name')}}</h2>
                 <div class="mb-3">
-                    <label class="form-label" for="email">@lang('validation.attributes.email')</label>
-                    <input name="email" type="text" id="email" class="form-control @error('email') is-invalid @enderror" placeholder="@lang('validation.attributes.email')">
-                    @error('email')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
+                    <x:form::input name="email"/>
                 </div>
                 <div class="mb-2">
-                    <label class="form-label" for="password">@lang('validation.attributes.password')</label>
-                    <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror"  placeholder="@lang('validation.attributes.password')"  autocomplete="off">
-                    @error('password')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
+                    <x:form::input type="password" name="password" value=""/>
                 </div>
                 <div class="form-footer">
                     <button type="submit" class="btn btn-primary w-100">@lang('auth.login')</button>
