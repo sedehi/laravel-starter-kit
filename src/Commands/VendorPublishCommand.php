@@ -62,6 +62,7 @@ class VendorPublishCommand extends Command
         $this->updateAuthConfig();
         $this->updateModuleConfig();
         $this->publishPermissionMiddleware();
+        $this->publishAuthMiddleware();
         $this->replaceSpatiePermissionModel();
         (new Process([base_path('./vendor/bin/pint')]))->run();
     }
@@ -182,6 +183,17 @@ class VendorPublishCommand extends Command
             );
             file_put_contents($configPath, $config);
         }
+
+        $config = file_get_contents($configPath);
+        Str::replace("'admin_middleware' => ['web'],","'admin_middleware' => [.$eol
+        'web',.$eol
+        \App\Http\Middleware\AuthenticateForAdmin::class,.$eol
+        \App\Http\Middleware\CheckPermissionByRouteName::class,.$eol
+    ],.$eol",
+        $config);
+
+        file_put_contents($configPath, $config);
+
     }
 
     private function replaceSpatiePermissionModel()
@@ -200,6 +212,14 @@ class VendorPublishCommand extends Command
          $middlewarePath = app_path('Http/Middleware/CheckPermissionByRouteName.php');
          if (! File::exists($middlewarePath)) {
              File::copy(__DIR__.'/../stubs/Middleware/CheckPermissionByRouteName.stub', $middlewarePath);
+         }
+     }
+
+     private function publishAuthMiddleware()
+     {
+         $middlewarePath = app_path('Http/Middleware/AuthenticateAdmin.php');
+         if (! File::exists($middlewarePath)) {
+             File::copy(__DIR__.'/../stubs/Middleware/AuthenticateAdmin.stub', $middlewarePath);
          }
      }
 
