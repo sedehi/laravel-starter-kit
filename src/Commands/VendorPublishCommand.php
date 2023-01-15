@@ -185,15 +185,14 @@ class VendorPublishCommand extends Command
         }
 
         $config = file_get_contents($configPath);
-        Str::replace("'admin_middleware' => ['web'],","'admin_middleware' => [.$eol
+        Str::replace("'admin_middleware' => ['web'],", "'admin_middleware' => [.$eol
         'web',.$eol
         \App\Http\Middleware\AuthenticateForAdmin::class,.$eol
         \App\Http\Middleware\CheckPermissionByRouteName::class,.$eol
     ],.$eol",
-        $config);
+            $config);
 
         file_put_contents($configPath, $config);
-
     }
 
     private function replaceSpatiePermissionModel()
