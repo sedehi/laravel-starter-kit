@@ -9,9 +9,12 @@
                 @endif
                 <div class="col-auto ms-auto">
                     <div class="btn-list">
-                        <a href="#" class="btn btn-danger as-form"
-                           data-action="{{route('admin.'.$routePrefix.'.destroy',$item->id)}}"
-                           data-method="DELETE">@lang('admin.destroy')</a>
+                        <form method="post" action="{{route('admin.'.$routePrefix.'.destroy',$item->id)}}">
+                            @csrf
+                            @method('delete')
+                            <input type="hidden" name="id[]" value="{{$item->id}}">
+                            <button class="btn btn-danger" type="submit">@lang('admin.destroy')</button>
+                        </form>
                         <a href="{{route('admin.'.$routePrefix.'.edit',$item->id)}}" class="btn btn-warning">@lang('admin.edit')</a>
                         @stack('header_button')
                     </div>
