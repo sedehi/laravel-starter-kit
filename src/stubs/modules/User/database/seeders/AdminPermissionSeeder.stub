@@ -14,7 +14,7 @@ class AdminPermissionSeeder extends Seeder
      */
     public function run()
     {
-        $permissions = Permission::generateCrudPermissionForModule('user');
+        $permissions = Permission::generateCrudPermissionForModule('admins');
         Permission::createWithRoute($permissions);
     }
 }
