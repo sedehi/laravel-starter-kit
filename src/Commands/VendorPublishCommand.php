@@ -185,7 +185,7 @@ class VendorPublishCommand extends Command
         }
 
         $config = file_get_contents($configPath);
-        $config =  Str::replace("    'admin_middleware' => ['web'],", "    'admin_middleware' => [
+        $config = Str::replace("    'admin_middleware' => ['web'],", "    'admin_middleware' => [
         'web',
         \App\Http\Middleware\AuthenticateForAdmin::class,
         \App\Http\Middleware\CheckPermissionByRouteName::class,
