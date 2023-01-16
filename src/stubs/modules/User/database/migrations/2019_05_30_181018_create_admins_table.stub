@@ -1,7 +1,7 @@
 <?php
 
-use App\Modules\User\Database\Seeders\AdminPermissionSeeder;
-use App\Modules\User\Database\Seeders\AdminTableSeeder;
+use App\Modules\User\database\seeders\AdminPermissionSeeder;
+use App\Modules\User\database\seeders\AdminTableSeeder;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Artisan;
