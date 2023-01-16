@@ -30,7 +30,7 @@ class UpdateTablerSidebar extends Command
                     base_path('resources/views/vendor/tabler/partials/sidebar-orginal.blade.php')
                 );
             }
-            File::makeDirectory('resources/views/vendor/tabler/partials', '0777', true);
+//            File::makeDirectory('resources/views/vendor/tabler/partials', '0777', true);
             File::copy(
                 __DIR__.'/../../resources/views/dynamic-sidebar.blade.php',
                 base_path('resources/views/vendor/tabler/partials/sidebar.blade.php')
