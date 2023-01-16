@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Role\Database\Seeders;
+namespace App\Modules\User\database\seeders;
 
 use App\Modules\Role\Models\Permission;
 use Illuminate\Database\Seeder;
@@ -14,7 +14,7 @@ class AdminPermissionSeeder extends Seeder
      */
     public function run()
     {
-        $permissions = Permission::generateCrudPermissionForModule('role');
+        $permissions = Permission::generateCrudPermissionForModule('admins');
         Permission::createWithRoute($permissions);
     }
 }

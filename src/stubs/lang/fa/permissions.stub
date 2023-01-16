@@ -3,6 +3,7 @@
 return [
     'role' => 'گروه کاربری',
     'admins' => 'مدیران',
+    'admin.home' => 'مدیریت',
     'admin.role.index' => 'لیست گروه کاربری',
     'admin.role.edit' => 'ویرایش گروه کاربری',
     'admin.role.create' => 'ایجاد گروه کاربری',
