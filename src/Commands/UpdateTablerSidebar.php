@@ -23,17 +23,17 @@ class UpdateTablerSidebar extends Command
      */
     public function handle()
     {
-        if (! File::exists(base_path('resources/views/vendor/tabler/partials/sidebar-orginal.blade.php'))) {
-            if (File::exists(base_path('resources/views/vendor/tabler/partials/sidebar.blade.php'))) {
+        if (! File::exists(resource_path('views/vendor/tabler/partials/sidebar-orginal.blade.php'))) {
+            if (File::exists(resource_path('views/vendor/tabler/partials/sidebar.blade.php'))) {
                 File::move(
-                    base_path('resources/views/vendor/tabler/partials/sidebar.blade.php'),
-                    base_path('resources/views/vendor/tabler/partials/sidebar-orginal.blade.php')
+                    resource_path('views/vendor/tabler/partials/sidebar.blade.php'),
+                    resource_path('views/vendor/tabler/partials/sidebar-orginal.blade.php')
                 );
             }
-//            File::makeDirectory('resources/views/vendor/tabler/partials', '0777', true);
+            File::makeDirectory(resource_path('views/vendor/tabler/partials'), '0777', true);
             File::copy(
                 __DIR__.'/../../resources/views/dynamic-sidebar.blade.php',
-                base_path('resources/views/vendor/tabler/partials/sidebar.blade.php')
+                resource_path('views/vendor/tabler/partials/sidebar.blade.php')
             );
         }
     }
