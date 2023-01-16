@@ -2,6 +2,7 @@
 
 namespace App\Modules\User\Models;
 
+use App\Modules\Role\Traits\RefreshPermissionRouteCache;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Sedehi\Filterable\Filterable;
@@ -9,7 +10,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class Admin extends Authenticatable
 {
-    use SoftDeletes,Filterable,HasRoles;
+    use SoftDeletes,Filterable,HasRoles,RefreshPermissionRouteCache;
 
     /**
      * The attributes that are mass assignable.
@@ -45,8 +46,9 @@ class Admin extends Authenticatable
         return $this->first_name.' '.$this->last_name;
     }
 
-    private function loadAllPermissionRoutes(){
-        return cache()->remember('permission_routes',config('permission.cache.expiration_time'),function(){
+    private function loadAllPermissionRoutes()
+    {
+        return cache()->remember(config('permission.cache.key').'_routes', config('permission.cache.expiration_time'), function () {
             return $this->loadMissing('roles.permissions.routes')
                 ->roles->flatMap(function ($role) {
                     return $role->permissions->flatMap(function ($role) {
@@ -56,7 +58,12 @@ class Admin extends Authenticatable
         });
     }
 
-    public function canByRoute($route){
-        return $this->loadAllPermissionRoutes()->intersect((array)$route);
+    /**
+     * @param $routes
+     * @return bool
+     */
+    public function hasRoute($routes):bool
+    {
+        return $this->loadAllPermissionRoutes()->intersect((array) $routes)->count();
     }
 }

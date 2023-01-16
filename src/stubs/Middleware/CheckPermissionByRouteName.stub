@@ -3,15 +3,15 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class CheckPermissionByRouteName
 {
     /**
      * Handle an incoming request.
-     * @param Request $request
-     * @param Closure $next
+     *
+     * @param  Request  $request
+     * @param  Closure  $next
      */
     public function handle(Request $request, Closure $next)
     {
@@ -20,11 +20,7 @@ class CheckPermissionByRouteName
             return $next($request);
         }
 
-        $checkPermission = auth(config('module.admin_guard'))
-            ->user()
-            ->whereHas('roles.permissions.routes', function ($query) use ($currentRouteName) {
-                $query->where('name', $currentRouteName);
-            })->first();
+        $checkPermission = auth(config('module.admin_guard'))->user()->hasRoute($currentRouteName);
         if (is_null($checkPermission)) {
             return redirect()->route('admin.home')->with('error',trans('admin.permission_denied'));
         }

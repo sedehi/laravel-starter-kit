@@ -28,7 +28,7 @@ class RoleController extends Controller
     {
         $role = Role::create(['name' => $request->get('name'), 'guard_name' => 'admin']);
         $role->syncPermissions($request->get('permissions'));
-
+        cache()->forget(config('permission.cache.key').'_routes');
         return redirect()->route('admin.role.index')->with('success', trans('admin.saved'));
     }
 
@@ -36,6 +36,7 @@ class RoleController extends Controller
     {
         $item = Role::findOrFail($id);
         $permissions = $this->permissions();
+
         return view('crud.edit', compact('item', 'permissions'));
     }
 
@@ -45,6 +46,7 @@ class RoleController extends Controller
         $role->name = $request->get('name');
         $role->save();
         $role->syncPermissions($request->get('permissions'));
+        cache()->forget(config('permission.cache.key').'_routes');
 
         return redirect()->route('admin.role.index')->with('success', trans('admin.saved'));
     }
@@ -52,6 +54,7 @@ class RoleController extends Controller
     public function destroy(RoleRequest $request)
     {
         Role::whereIn('id', $request->get('id'))->get()->each->delete();
+        cache()->forget(config('permission.cache.key').'_routes');
 
         return back()->with('success', trans('admin.deleted'));
     }

@@ -2,36 +2,38 @@
 
 namespace App\Modules\Role\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Modules\Role\Traits\RefreshPermissionRouteCache;
 use Illuminate\Support\Str;
 
 class Permission extends \Spatie\Permission\Models\Permission
 {
-
-    public function getModuleNameAttribute(){
+    use RefreshPermissionRouteCache;
+    public function getModuleNameAttribute()
+    {
         return Str::of($this->name)->replace('admin.','')->before('.');
     }
 
-    public function routes(){
+    public function routes()
+    {
         return $this->hasMany(PermissionRoute::class);
     }
 
-    public static function createWithRoute($permissions){
+    public static function createWithRoute($permissions)
+    {
         foreach ($permissions as $permission) {
-            $item =  self::firstOrCreate(['guard_name' => config('module.admin_guard'), 'name' =>$permission['name']]);
-            if(isset($permission['routes'])){
-                foreach ($permission['routes'] as $route){
+            $item = self::firstOrCreate(['guard_name' => config('module.admin_guard'), 'name' => $permission['name']]);
+            if (isset($permission['routes'])) {
+                foreach ($permission['routes'] as $route) {
                     $item->routes()->firstOrCreate(['name' => $route]);
                 }
-            }else{
+            } else {
                 $item->routes()->firstOrCreate(['name' => $permission['name']]);
             }
         }
     }
 
-
-    public static function generateCrudPermissionForModule($name,$appends = []){
+    public static function generateCrudPermissionForModule($name, $appends = [])
+    {
         $permissions = [
             [
                 'name' => 'admin.'.$name.'.index',
@@ -47,18 +49,17 @@ class Permission extends \Spatie\Permission\Models\Permission
                 'routes' => [
                     'admin.'.$name.'.edit',
                     'admin.'.$name.'.update',
-                ]
+                ],
             ],
             [
                 'name' => 'admin.'.$name.'.create',
                 'routes' => [
                     'admin.'.$name.'.create',
                     'admin.'.$name.'.store',
-                ]
+                ],
             ],
         ];
 
-        return array_merge($permissions,$appends);
+        return array_merge($permissions, $appends);
     }
-
 }

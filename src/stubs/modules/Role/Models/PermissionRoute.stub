@@ -2,18 +2,19 @@
 
 namespace App\Modules\Role\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Modules\Role\Traits\RefreshPermissionRouteCache;
 use Illuminate\Database\Eloquent\Model;
 
 class PermissionRoute extends Model
 {
+    use RefreshPermissionRouteCache;
+
     public $table = 'permission_routes';
 
     protected $fillable = [
         'permission_id',
-        'name'
+        'name',
     ];
-
 
     public function permission()
     {
