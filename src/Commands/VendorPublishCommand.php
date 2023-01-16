@@ -49,10 +49,11 @@ class VendorPublishCommand extends Command
         $this->call('vendor:publish', ['--tag' => 'log-viewer-config']);
         $this->call('vendor:publish', ['--tag' => 'tabler-index']);
         $this->call('vendor:publish', ['--tag' => 'tabler-lang']);
+        $this->call('vendor:publish', ['--tag' => 'starer-kit-sidebar-view']);
         $this->call(PublishModuleCommand::class, ['name' => 'Auth']);
         $this->call(PublishModuleCommand::class, ['name' => 'Role']);
         $this->call(PublishModuleCommand::class, ['name' => 'User']);
-        $this->call(UpdateTablerSidebar::class);
+//        $this->call(UpdateTablerSidebar::class);
 
         $this->call('module:install');
         $this->makeAdminRouteAndController();
