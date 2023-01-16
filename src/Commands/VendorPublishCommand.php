@@ -98,7 +98,6 @@ class VendorPublishCommand extends Command
         }
     }
 
-
     /**
      * @return void
      */
