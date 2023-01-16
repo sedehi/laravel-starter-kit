@@ -34,6 +34,7 @@ class PublishModuleCommand extends Command
                 File::move($stubFileFullNameWithPath, $phpFileFullNameWithPath);
             }
             $this->info('The '.$name.' module has been successfully copied');
+
             return true;
         }
         $this->error('Module '.$name.' already exists');
