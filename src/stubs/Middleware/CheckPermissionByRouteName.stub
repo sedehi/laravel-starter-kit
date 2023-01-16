@@ -26,7 +26,7 @@ class CheckPermissionByRouteName
                 $query->where('name', $currentRouteName);
             })->first();
         if (is_null($checkPermission)) {
-            return redirect()->route('admin.home')->with('error',);
+            return redirect()->route('admin.home')->with('error',trans('admin.permission_denied'));
         }
 
         return $next($request);

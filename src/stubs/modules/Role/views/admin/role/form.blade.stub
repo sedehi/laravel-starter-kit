@@ -6,7 +6,7 @@
 @foreach($permissions->groupBy('module_name') as  $module => $permissions)
     <div class="col-md-12">
         <div class="row justify-content-between">
-            <h4 class="row justify-content-start">{{ $module }}</h4>
+            <h4 class="row justify-content-start">@lang('permissions.'.$module)</h4>
             <div class="row justify-content-end">
                 <x:form::checkbox name="select_this_part" class="checkPart" id="checkPart{{$module}}" data-part="{{$module}}"/>
             </div>

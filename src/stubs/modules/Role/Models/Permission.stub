@@ -10,7 +10,7 @@ class Permission extends \Spatie\Permission\Models\Permission
 {
 
     public function getModuleNameAttribute(){
-       return Str::of($this->name)->ltrim('admin.')->before('.');
+        return Str::of($this->name)->replace('admin.','')->before('.');
     }
 
     public function routes(){
