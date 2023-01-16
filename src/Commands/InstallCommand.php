@@ -37,9 +37,9 @@ class InstallCommand extends Command
             'sedehi/laravel-tools',
             'laravel/horizon',
             'sedehi/laravel-module',
+            'opcodesio/log-viewer',
         ]);
         app()->make(Composer::class)->run(['require', 'barryvdh/laravel-debugbar',
-            'opcodesio/log-viewer',
             'laravel/pint',
             '--dev',
         ]);
