@@ -1,1 +1,4 @@
-<x-tabler::sidebar-link title="users" route="admin.admins.index" />
+<x-tabler::sidebar-link :title="trans('permissions.admins')">
+    <x-tabler::sidebar-sublink route="admin.admins.index" />
+    <x-tabler::sidebar-sublink route="admin.admins.create" />
+</x-tabler::sidebar-link>

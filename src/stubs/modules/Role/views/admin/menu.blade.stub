@@ -1,1 +1,1 @@
-<x-tabler::sidebar-link title="roles" route="admin.role.index" />
+<x-tabler::sidebar-link route="admin.role.index" />
