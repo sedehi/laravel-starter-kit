@@ -21,7 +21,7 @@ class CheckPermissionByRouteName
         }
 
         $checkPermission = auth(config('module.admin_guard'))->user()->hasRoute($currentRouteName);
-        if (is_null($checkPermission)) {
+        if ($checkPermission) {
             return redirect()->route('admin.home')->with('error',trans('admin.permission_denied'));
         }
 
