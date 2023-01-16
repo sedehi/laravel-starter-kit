@@ -20,7 +20,7 @@ class LaravelStarterKitServiceProvider extends ServiceProvider
             $this->commands([
                 InstallCommand::class,
                 PublishModuleCommand::class,
-//                UpdateTablerSidebar::class,
+                //                UpdateTablerSidebar::class,
                 VendorPublishCommand::class,
             ]);
 
