@@ -33,8 +33,7 @@ class PublishModuleCommand extends Command
                 $phpFileFullNameWithPath = Str::replace('.stub', '.php', $stubFileFullNameWithPath);
                 File::move($stubFileFullNameWithPath, $phpFileFullNameWithPath);
             }
-            $this->info($name.' publish');
-
+            $this->info('The '.$name.' module has been successfully copied');
             return true;
         }
         $this->error('Module '.$name.' already exists');
