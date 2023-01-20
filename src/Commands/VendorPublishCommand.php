@@ -4,7 +4,6 @@ namespace Sedehi\LaravelStarterKit\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageServiceProviderLaravelRecent;
