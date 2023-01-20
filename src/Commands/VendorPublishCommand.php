@@ -4,6 +4,7 @@ namespace Sedehi\LaravelStarterKit\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageServiceProviderLaravelRecent;
@@ -53,7 +54,7 @@ class VendorPublishCommand extends Command
         $this->call(PublishModuleCommand::class, ['name' => 'Auth']);
         $this->call(PublishModuleCommand::class, ['name' => 'Role']);
         $this->call(PublishModuleCommand::class, ['name' => 'User']);
-//        $this->call(UpdateTablerSidebar::class);
+        $this->call(UpdateTablerSidebar::class);
 
         $this->call('module:install');
         $this->makeAdminRouteAndController();
@@ -64,6 +65,7 @@ class VendorPublishCommand extends Command
         $this->publishPermissionMiddleware();
         $this->publishAuthMiddleware();
         $this->replaceSpatiePermissionModel();
+        $this->addPermissionDirective();
         (new Process([base_path('./vendor/bin/pint')]))->run();
     }
 
@@ -201,6 +203,31 @@ class VendorPublishCommand extends Command
          $middlewarePath = app_path('Http/Middleware/AuthenticateForAdmin.php');
          if (! File::exists($middlewarePath)) {
              File::copy(__DIR__.'/../stubs/Middleware/AuthenticateForAdmin.stub', $middlewarePath);
+         }
+     }
+
+     private function addPermissionDirective()
+     {
+         $serviceProvider = app_path('Providers/ModuleServiceProvider.php');
+         if (File::exists($serviceProvider)) {
+             $providerContent = file_get_contents($serviceProvider);
+             if (Str::contains($providerContent, 'hasRoute')) {
+                 return;
+             }
+
+             file_put_contents($serviceProvider, str_replace(
+                 "use Illuminate\Support\ServiceProvider;".PHP_EOL,
+                 "use Illuminate\Support\ServiceProvider;".PHP_EOL."use Illuminate\Support\Facades\Blade;".PHP_EOL,
+                 $providerContent
+             ));
+
+             $providerContent = file_get_contents($serviceProvider);
+             file_put_contents($serviceProvider, str_replace(
+                 '    public function boot()
+    {'.PHP_EOL,
+                 "public function boot()\n\t{\n\t\tBlade::directive('hasRoute', function (\$expression) {\n\t\t\treturn \"<?php if(auth(config('module.admin_guard'))->user()->hasRoute(\$expression)): ?>\";\n\t\t});",
+                 $providerContent
+             ));
          }
      }
 
