@@ -4,7 +4,6 @@ namespace Sedehi\LaravelStarterKit\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageServiceProviderLaravelRecent;
@@ -38,34 +37,35 @@ class VendorPublishCommand extends Command
      */
     public function handle()
     {
-        $this->call('vendor:publish', ['--provider' => PermissionServiceProvider::class]);
-        File::delete(glob(database_path('migrations/*create_permission_tables.php')));
-        $this->call('vendor:publish', ['--provider' => ImageServiceProviderLaravelRecent::class]);
-        $this->call('vendor:publish', ['--provider' => FilterableServiceProvider::class]);
-        $this->call('vendor:publish', ['--tag' => 'tabler-assets']);
-        $this->call('vendor:publish', ['--tag' => 'form-components:config']);
-        $this->call('vendor:publish', ['--provider' => LaravelToolsServiceProvider::class]);
-        $this->call('vendor:publish', ['--provider' => LaravelModuleServiceProvider::class]);
-        $this->call('vendor:publish', ['--provider' => HorizonServiceProvider::class]);
-        $this->call('vendor:publish', ['--tag' => 'log-viewer-config']);
-        $this->call('vendor:publish', ['--tag' => 'tabler-index']);
-        $this->call('vendor:publish', ['--tag' => 'tabler-lang']);
-        $this->call('vendor:publish', ['--tag' => 'starer-kit-sidebar-view']);
-        $this->call(PublishModuleCommand::class, ['name' => 'Auth']);
-        $this->call(PublishModuleCommand::class, ['name' => 'Role']);
-        $this->call(PublishModuleCommand::class, ['name' => 'User']);
-        $this->call(UpdateTablerSidebar::class);
+//        $this->call('vendor:publish', ['--provider' => PermissionServiceProvider::class]);
+//        File::delete(glob(database_path('migrations/*create_permission_tables.php')));
+//        $this->call('vendor:publish', ['--provider' => ImageServiceProviderLaravelRecent::class]);
+//        $this->call('vendor:publish', ['--provider' => FilterableServiceProvider::class]);
+//        $this->call('vendor:publish', ['--tag' => 'tabler-assets']);
+//        $this->call('vendor:publish', ['--tag' => 'form-components:config']);
+//        $this->call('vendor:publish', ['--provider' => LaravelToolsServiceProvider::class]);
+//        $this->call('vendor:publish', ['--provider' => LaravelModuleServiceProvider::class]);
+//        $this->call('vendor:publish', ['--provider' => HorizonServiceProvider::class]);
+//        $this->call('vendor:publish', ['--tag' => 'log-viewer-config']);
+//        $this->call('vendor:publish', ['--tag' => 'tabler-index']);
+//        $this->call('vendor:publish', ['--tag' => 'tabler-lang']);
+//        $this->call('vendor:publish', ['--tag' => 'starer-kit-sidebar-view']);
+//        $this->call(PublishModuleCommand::class, ['name' => 'Auth']);
+//        $this->call(PublishModuleCommand::class, ['name' => 'Role']);
+//        $this->call(PublishModuleCommand::class, ['name' => 'User']);
+//        $this->call(UpdateTablerSidebar::class);
 
-        $this->call('module:install');
-        $this->makeAdminRouteAndController();
-        $this->publishCrudViews();
-        $this->publishFaLang();
-        $this->updateAuthConfig();
-        $this->updateModuleConfig();
-        $this->publishPermissionMiddleware();
-        $this->publishAuthMiddleware();
-        $this->replaceSpatiePermissionModel();
-        $this->addPermissionDirective();
+//        $this->call('module:install');
+//        $this->makeAdminRouteAndController();
+//        $this->publishCrudViews();
+//        $this->publishFaLang();
+//        $this->updateAuthConfig();
+//        $this->updateModuleConfig();
+//        $this->publishPermissionMiddleware();
+//        $this->publishAuthMiddleware();
+//        $this->replaceSpatiePermissionModel();
+//        $this->addPermissionDirective();
+        $this->updatePHPUnitConfig();
         (new Process([base_path('./vendor/bin/pint')]))->run();
     }
 
@@ -203,6 +203,30 @@ class VendorPublishCommand extends Command
          $middlewarePath = app_path('Http/Middleware/AuthenticateForAdmin.php');
          if (! File::exists($middlewarePath)) {
              File::copy(__DIR__.'/../stubs/Middleware/AuthenticateForAdmin.stub', $middlewarePath);
+         }
+     }
+
+     private function updatePHPUnitConfig()
+     {
+         $filePath = base_path('phpunit.xml');
+         $fileContent = file_get_contents($filePath);
+         if (! Str::contains($fileContent, './app/Modules/*/tests/Unit')) {
+             file_put_contents($filePath, str_replace(
+                 '<directory suffix="Test.php">./tests/Unit</directory>'.PHP_EOL,
+                 '<directory suffix="Test.php">./tests/Unit</directory>'.PHP_EOL.
+                 '            <directory suffix="Test.php">./app/Modules/*/tests/Unit</directory>'.PHP_EOL,
+                 $fileContent
+             ));
+         }
+
+         $fileContent = file_get_contents($filePath);
+         if (! Str::contains($fileContent, './app/Modules/*/tests/Feature')) {
+             file_put_contents($filePath, str_replace(
+                 '<directory suffix="Test.php">./tests/Feature</directory>'.PHP_EOL,
+                 '<directory suffix="Test.php">./tests/Feature</directory>'.PHP_EOL.
+                 '            <directory suffix="Test.php">./app/Modules/*/tests/Feature</directory>'.PHP_EOL,
+                 $fileContent
+             ));
          }
      }
 
