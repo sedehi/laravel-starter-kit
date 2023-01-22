@@ -54,7 +54,7 @@ class VendorPublishCommand extends Command
         $this->call(PublishModuleCommand::class, ['name' => 'Auth']);
         $this->call(PublishModuleCommand::class, ['name' => 'Role']);
         $this->call(PublishModuleCommand::class, ['name' => 'User']);
-        $this->call(UpdateTablerSidebar::class);
+//        $this->call(UpdateTablerSidebar::class);
 
         $this->call('module:install');
         $this->makeAdminRouteAndController();
