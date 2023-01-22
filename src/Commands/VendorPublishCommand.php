@@ -50,6 +50,7 @@ class VendorPublishCommand extends Command
         $this->call('vendor:publish', ['--tag' => 'tabler-index']);
         $this->call('vendor:publish', ['--tag' => 'tabler-lang']);
         $this->call('vendor:publish', ['--tag' => 'starer-kit-sidebar-view']);
+        $this->call('vendor:publish', ['--tag' => 'starer-kit-crud-view']);
         $this->call(PublishModuleCommand::class, ['name' => 'Auth']);
         $this->call(PublishModuleCommand::class, ['name' => 'Role']);
         $this->call(PublishModuleCommand::class, ['name' => 'User']);
@@ -57,7 +58,7 @@ class VendorPublishCommand extends Command
 
         $this->call('module:install');
         $this->makeAdminRouteAndController();
-        $this->publishCrudViews();
+//        $this->publishCrudViews();
         $this->publishFaLang();
         $this->updateAuthConfig();
         $this->updateModuleConfig();

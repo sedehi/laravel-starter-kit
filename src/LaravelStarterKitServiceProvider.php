@@ -27,6 +27,10 @@ class LaravelStarterKitServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__.'/../resources/views/dynamic-sidebar.blade.php' => resource_path('views/vendor/tabler/partials/sidebar.blade.php'),
             ], 'starer-kit-sidebar-view');
+
+            $this->publishes([
+                __DIR__.'/stubs/views/crud' => resource_path('resources/views/crud'),
+            ], 'starer-kit-crud-view');
         }
     }
 }
