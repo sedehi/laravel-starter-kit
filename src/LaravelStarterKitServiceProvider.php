@@ -31,6 +31,10 @@ class LaravelStarterKitServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__.'/stubs/views/crud' => resource_path('resources/views/crud'),
             ], 'starer-kit-crud-view');
+
+            $this->publishes([
+                __DIR__.'/stubs/lang' => base_path('lang'),
+            ], 'starer-kit-lang');
         }
     }
 }

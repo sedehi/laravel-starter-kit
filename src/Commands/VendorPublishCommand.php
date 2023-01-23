@@ -51,6 +51,7 @@ class VendorPublishCommand extends Command
         $this->call('vendor:publish', ['--tag' => 'tabler-lang']);
         $this->call('vendor:publish', ['--tag' => 'starer-kit-sidebar-view']);
         $this->call('vendor:publish', ['--tag' => 'starer-kit-crud-view']);
+        $this->call('vendor:publish', ['--tag' => 'starer-kit-lang']);
         $this->call(PublishModuleCommand::class, ['name' => 'Auth']);
         $this->call(PublishModuleCommand::class, ['name' => 'Role']);
         $this->call(PublishModuleCommand::class, ['name' => 'User']);
@@ -59,7 +60,7 @@ class VendorPublishCommand extends Command
         $this->call('module:install');
         $this->makeAdminRouteAndController();
 //        $this->publishCrudViews();
-        $this->publishFaLang();
+//        $this->publishFaLang();
         $this->updateAuthConfig();
         $this->updateModuleConfig();
         $this->publishPermissionMiddleware();
@@ -170,14 +171,16 @@ class VendorPublishCommand extends Command
         }
 
         $config = file_get_contents($configPath);
-        $config = Str::replace("    'admin_middleware' => ['web'],", "    'admin_middleware' => [
+        if (! Str::contains($config, '\App\Http\Middleware\AuthenticateForAdmin::class')) {
+            $config = Str::replace("    'admin_middleware' => ['web'],", "    'admin_middleware' => [
         'web',
         \App\Http\Middleware\AuthenticateForAdmin::class,
         \App\Http\Middleware\CheckPermissionByRouteName::class,
     ],",
-            $config);
+                $config);
 
-        file_put_contents($configPath, $config);
+            file_put_contents($configPath, $config);
+        }
     }
 
     private function replaceSpatiePermissionModel()
