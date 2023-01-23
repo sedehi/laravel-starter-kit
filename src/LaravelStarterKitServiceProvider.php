@@ -29,7 +29,7 @@ class LaravelStarterKitServiceProvider extends ServiceProvider
             ], 'starer-kit-sidebar-view');
 
             $this->publishes([
-                __DIR__.'/stubs/views/crud' => resource_path('resources/views/crud'),
+                __DIR__.'/stubs/views/crud/' => resource_path('views/crud'),
             ], 'starer-kit-crud-view');
 
             $this->publishes([

@@ -9,13 +9,17 @@
                 @endif
                 <div class="col-auto ms-auto">
                     <div class="btn-list">
-                        <form method="post" action="{{route('admin.'.$routePrefix.'.destroy',$item->id)}}">
-                            @csrf
-                            @method('delete')
-                            <input type="hidden" name="id[]" value="{{$item->id}}">
-                            <button class="btn btn-danger" type="submit">@lang('admin.destroy')</button>
-                        </form>
-                        <a href="{{route('admin.'.$routePrefix.'.edit',$item->id)}}" class="btn btn-warning">@lang('admin.edit')</a>
+                        @hasRoute('admin.'.$routePrefix.'.destroy')
+                            <form method="post" action="{{route('admin.'.$routePrefix.'.destroy',$item->id)}}">
+                                @csrf
+                                @method('delete')
+                                <input type="hidden" name="id[]" value="{{$item->id}}">
+                                <button class="btn btn-danger" type="submit">@lang('admin.destroy')</button>
+                            </form>
+                        @endif
+                        @hasRoute('admin.'.$routePrefix.'.edit')
+                            <a href="{{route('admin.'.$routePrefix.'.edit',$item->id)}}" class="btn btn-warning">@lang('admin.edit')</a>
+                        @endif
                         @stack('header_button')
                     </div>
                 </div>

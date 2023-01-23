@@ -10,7 +10,9 @@
 			<div class="col-auto ms-auto">
 				<div class="btn-list">
 					@sectionMissing('create_button')
-						<a href="{{route('admin.'.$routePrefix.'.create')}}" class="btn btn-primary">@lang('admin.create')</a>
+                        @hasRoute('admin.'.$routePrefix.'.create')
+						    <a href="{{route('admin.'.$routePrefix.'.create')}}" class="btn btn-primary">@lang('admin.create')</a>
+                        @endif
 					@else
 						@yield('create_button')
 					@endif
@@ -27,10 +29,12 @@
 					@endif
 
 					@sectionMissing('destroy_button')
-						<a href="#" class="btn btn-danger as-form"
+                        @hasRoute('admin.'.$routePrefix.'.destroy')
+                            <a href="#" class="btn btn-danger as-form"
 						   data-action="{{route('admin.'.$routePrefix.'.destroy',1)}}"
 						   data-method="DELETE"
 						   data-form=".table-checkbox">@lang('admin.destroy')</a>
+                        @endif
 					@else
 						@yield('destroy_button')
 					@endif
