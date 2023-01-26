@@ -4,14 +4,7 @@
         <x-tabler::table :items="$items"
                          :headers="[trans('validation.attributes.title'),trans('validation.attributes.created_at'),'....']"
                          fields="Role::admin.role.table-row"
-                         :links="[
-				[
-				'title' => trans('admin.edit'),
-				'url' => function($item){
-                    return route('admin.role.edit',$item->id);
- 				    }
-                 ],
-			]"
+                         links="Role::admin.role.table-btns"
         />
     </div>
 @endsection

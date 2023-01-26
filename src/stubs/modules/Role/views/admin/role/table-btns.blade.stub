@@ -1,0 +1,8 @@
+<div class="dropdown">
+<button class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown">@lang('tabler.actions')</button>
+    <div class="dropdown-menu dropdown-menu-end">
+        @hasRoute("admin.$routePrefix.edit")
+            <a class="dropdown-item" href="{{route("admin.$routePrefix.edit",$item->id)}}">@lang('admin.edit')</a>
+        @endif
+    </div>
+</div>
