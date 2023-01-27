@@ -20,21 +20,24 @@ class LaravelStarterKitServiceProvider extends ServiceProvider
             $this->commands([
                 InstallCommand::class,
                 PublishModuleCommand::class,
-                //                UpdateTablerSidebar::class,
                 VendorPublishCommand::class,
             ]);
 
             $this->publishes([
                 __DIR__.'/../resources/views/dynamic-sidebar.blade.php' => resource_path('views/vendor/tabler/partials/sidebar.blade.php'),
-            ], 'starer-kit-sidebar-view');
+            ], 'starter-kit-sidebar-view');
+
+            $this->publishes([
+                __DIR__.'/../resources/views/header.blade.php' => resource_path('views/vendor/tabler/partials/header.blade.php'),
+            ], 'starter-kit-header-view');
 
             $this->publishes([
                 __DIR__.'/stubs/views/crud/' => resource_path('views/crud'),
-            ], 'starer-kit-crud-view');
+            ], 'starter-kit-crud-view');
 
             $this->publishes([
                 __DIR__.'/stubs/lang' => base_path('lang'),
-            ], 'starer-kit-lang');
+            ], 'starter-kit-lang');
         }
     }
 }
