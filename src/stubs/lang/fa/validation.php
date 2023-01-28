@@ -210,6 +210,6 @@ return [
         'fullname' => 'نام و نام خانوادگی',
         'select_all' => 'انتخاب همه',
         'select_this_part' => 'انتخاب این قسمت',
-        'old_password' => 'رمز عبور قدیمی'
+        'old_password' => 'رمز عبور قدیمی',
     ],
 ];
