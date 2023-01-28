@@ -2,6 +2,7 @@
 
 return [
     'role' => 'گروه کاربری',
+    'admin.login.form' => 'ورود به مدیریت',
     'admins' => 'مدیران',
     'admin.home' => 'مدیریت',
     'admin.role.index' => 'لیست گروه کاربری',
@@ -19,4 +20,5 @@ return [
     'admin.admins.edit' => 'ویرایش مدیر',
     'admin.admins.create' => 'ایجاد مدیر',
     'admin.admins.destroy' => 'حذف مدیران',
+    'admin.change.password.from' => 'ویرایش رمزعبور',
 ];
