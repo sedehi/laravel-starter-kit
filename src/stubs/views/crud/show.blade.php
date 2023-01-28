@@ -3,22 +3,22 @@
     <div class="page-header">
         <div class="row align-items-center">
             @sectionMissing('page_title')
-                <x-tabler::page-title :title="trans('admin.'.$routePrefix)" :pretitle="trans('admin.title')"/>
+                <x-tabler::page-title :title="trans('permissions.'.$routeName)" :pretitle="trans('admin.title')"/>
                 @else
                     @yield('page_title')
                 @endif
                 <div class="col-auto ms-auto">
                     <div class="btn-list">
                         @hasRoute('admin.'.$routePrefix.'.destroy')
-                            <form method="post" action="{{route('admin.'.$routePrefix.'.destroy',$item->id)}}">
-                                @csrf
-                                @method('delete')
-                                <input type="hidden" name="id[]" value="{{$item->id}}">
-                                <button class="btn btn-danger" type="submit">@lang('admin.destroy')</button>
-                            </form>
+                        <form method="post" action="{{route('admin.'.$routePrefix.'.destroy',[1] + request()->route()->parameters)}}">
+                            @csrf
+                            @method('delete')
+                            <input type="hidden" name="id[]" value="{{$item->id}}">
+                            <button class="btn btn-danger" type="submit">@lang('admin.destroy')</button>
+                        </form>
                         @endif
                         @hasRoute('admin.'.$routePrefix.'.edit')
-                            <a href="{{route('admin.'.$routePrefix.'.edit',$item->id)}}" class="btn btn-warning">@lang('admin.edit')</a>
+                        <a href="{{route('admin.'.$routePrefix.'.edit',request()->route()->parameters)}}" class="btn btn-warning">@lang('admin.edit')</a>
                         @endif
                         @stack('header_button')
                     </div>
