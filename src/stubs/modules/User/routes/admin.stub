@@ -1,6 +1,9 @@
 <?php
 
 use App\Modules\User\Controllers\Admin\AdminController;
+use App\Modules\User\Controllers\Admin\ChangePasswordController;
 use Illuminate\Support\Facades\Route;
 
 Route::resource('admins', AdminController::class)->names('admins');
+Route::get('change-password',[ChangePasswordController::class,'form'])->name('change.password.from');
+Route::post('change-password',[ChangePasswordController::class,'change'])->name('change.password.change');

@@ -161,6 +161,8 @@ class VendorPublishCommand extends Command
                 '];',
                 "'allowed_routes' => [".$eol.
                 "'admin.home',".$eol.
+                "'admin.change.password.from',".$eol.
+                "'admin.change.password.change',".$eol.
                 '],'.$eol
                 .'];'.$eol,
                 $config

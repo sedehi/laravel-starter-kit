@@ -1,33 +1,18 @@
-@extends('vendor.section.master')
+@extends('tabler::layout')
 @section('content')
-    <div class="row gap-20 pos-r">
-        <div class="col-md-12">
-            <div class="bgc-white p-20 bd">
-                <div class="mT-30">
-                    <form action="{{ action([\App\Modules\User\Controllers\Admin\ChangePasswordController::class,'change']) }}" method="post">
-                        @csrf
-                        <div class="row">
-                            <div class="form-group col-md-5">
-                                <lable for="old_password">@lang('validation.attributes.current_password')</lable>
-                                <input type="password" name="old_password" class="form-control">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-5">
-                                <lable for="password">@lang('validation.attributes.password')</lable>
-                                <input type="password" name="password" class="form-control">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-5">
-                                <lable for="password_confirmation">@lang('validation.attributes.password_confirmation')</lable>
-                                <input type="password" name="password_confirmation" class="form-control">
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary">@lang('admin.submit')</button>
-                    </form>
+    <div class="col-12">
+        <x:form::form class="card" method="POST" :action="route('admin.change.password.change')" enctype="multipart/form-data">
+            <div class="card-body">
+                <x:form::input type="password" name="old_password" value=""/>
+                <x:form::input type="password" name="password" value=""/>
+                <x:form::input type="password" name="password_confirmation" value=""/>
+            </div>
+            <div class="card-footer text-end">
+                <div class="d-flex">
+                    <button type="submit" class="btn btn-primary me-auto">@lang('admin.submit')</button>
+                    <a href="{{route('admin.home')}}" class="btn btn-link">@lang('admin.cancel')</a>
                 </div>
             </div>
-        </div>
+            </x:form:form>
     </div>
 @endsection

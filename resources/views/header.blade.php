@@ -7,11 +7,14 @@
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
                     <div class="d-none d-xl-block ps-2">
-                        <div>Admin Name</div>
+                        <div>{{auth(config('module.admin_guard'))->user()?->fullname}}</div>
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <a href="#" class="dropdown-item">#</a>
+                    <a href="{{route('admin.change.password.from')}}" class="dropdown-item">@lang('admin.change-password')</a>
+                    <x:form::form method="POST" :action="route('admin.logout')" >
+                        <button type="submit" class="dropdown-item">@lang('auth.logout')</button>
+                    </x:form:form>
                 </div>
             </div>
         </div>
