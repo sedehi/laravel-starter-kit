@@ -1,5 +1,8 @@
 <!doctype html>
-@php($direction = config('tabler.dir'))
+@php($direction = 'ltr')
+@if(in_array(app()->getLocale(),['fa','ar']))
+    @php($direction = 'rtl')
+@endif
 <html lang="{{app()->getLocale()}}"  dir="{{$direction}}">
 @include('tabler::partials.head')
 <body class="d-flex flex-column">
