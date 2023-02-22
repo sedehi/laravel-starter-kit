@@ -69,9 +69,6 @@ class VendorPublishCommand extends Command
         (new Process([base_path('./vendor/bin/pint')]))->run();
     }
 
-    /**
-     * @return void
-     */
     private function makeAdminRouteAndController(): void
     {
         if (! File::exists(base_path('routes/admin.php'))) {
@@ -82,9 +79,6 @@ class VendorPublishCommand extends Command
         }
     }
 
-    /**
-     * @return void
-     */
     private function publishCrudViews(): void
     {
         $path = base_path('resources/views/crud');
@@ -100,9 +94,6 @@ class VendorPublishCommand extends Command
         }
     }
 
-    /**
-     * @return void
-     */
     private function publishFaLang(): void
     {
         $path = base_path('lang/fa');
