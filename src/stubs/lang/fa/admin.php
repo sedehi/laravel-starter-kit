@@ -16,4 +16,5 @@ return [
     'permission_denied' => 'شما دسترسی به این قسمت را ندارید.',
     'change-password' => 'تغییر رمز عبور',
     'role' => 'گروه کاربری',
+    'delete_confirmation' => 'آیا از حذف اطلاعات مطمئن هستید ؟',
 ];

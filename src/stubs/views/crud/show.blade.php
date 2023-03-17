@@ -10,7 +10,7 @@
                 <div class="col-auto ms-auto">
                     <div class="btn-list">
                         @hasRoute('admin.'.$routePrefix.'.destroy')
-                        <form method="post" action="{{route('admin.'.$routePrefix.'.destroy',[1] + request()->route()->parameters)}}">
+                        <form method="post" action="{{route('admin.'.$routePrefix.'.destroy',[1] + request()->route()->parameters)}}" onsubmit="return confirm('@lang('admin.delete_confirmation')')">
                             @csrf
                             @method('delete')
                             <input type="hidden" name="id[]" value="{{$item->id}}">
