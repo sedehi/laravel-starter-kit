@@ -185,70 +185,70 @@ class VendorPublishCommand extends Command
         ));
     }
 
-     private function publishPermissionMiddleware()
-     {
-         $middlewarePath = app_path('Http/Middleware/CheckPermissionByRouteName.php');
-         if (! File::exists($middlewarePath)) {
-             File::copy(__DIR__.'/../stubs/Middleware/CheckPermissionByRouteName.stub', $middlewarePath);
-         }
-     }
+    private function publishPermissionMiddleware()
+    {
+        $middlewarePath = app_path('Http/Middleware/CheckPermissionByRouteName.php');
+        if (! File::exists($middlewarePath)) {
+            File::copy(__DIR__.'/../stubs/Middleware/CheckPermissionByRouteName.stub', $middlewarePath);
+        }
+    }
 
-     private function publishAuthMiddleware()
-     {
-         $middlewarePath = app_path('Http/Middleware/AuthenticateForAdmin.php');
-         if (! File::exists($middlewarePath)) {
-             File::copy(__DIR__.'/../stubs/Middleware/AuthenticateForAdmin.stub', $middlewarePath);
-         }
-     }
+    private function publishAuthMiddleware()
+    {
+        $middlewarePath = app_path('Http/Middleware/AuthenticateForAdmin.php');
+        if (! File::exists($middlewarePath)) {
+            File::copy(__DIR__.'/../stubs/Middleware/AuthenticateForAdmin.stub', $middlewarePath);
+        }
+    }
 
-     private function updatePHPUnitConfig()
-     {
-         $filePath = base_path('phpunit.xml');
-         $fileContent = file_get_contents($filePath);
-         if (! Str::contains($fileContent, './app/Modules/*/tests/Unit')) {
-             file_put_contents($filePath, str_replace(
-                 '<directory suffix="Test.php">./tests/Unit</directory>'.PHP_EOL,
-                 '<directory suffix="Test.php">./tests/Unit</directory>'.PHP_EOL.
-                 '            <directory suffix="Test.php">./app/Modules/*/tests/Unit</directory>'.PHP_EOL,
-                 $fileContent
-             ));
-         }
+    private function updatePHPUnitConfig()
+    {
+        $filePath = base_path('phpunit.xml');
+        $fileContent = file_get_contents($filePath);
+        if (! Str::contains($fileContent, './app/Modules/*/tests/Unit')) {
+            file_put_contents($filePath, str_replace(
+                '<directory suffix="Test.php">./tests/Unit</directory>'.PHP_EOL,
+                '<directory suffix="Test.php">./tests/Unit</directory>'.PHP_EOL.
+                '            <directory suffix="Test.php">./app/Modules/*/tests/Unit</directory>'.PHP_EOL,
+                $fileContent
+            ));
+        }
 
-         $fileContent = file_get_contents($filePath);
-         if (! Str::contains($fileContent, './app/Modules/*/tests/Feature')) {
-             file_put_contents($filePath, str_replace(
-                 '<directory suffix="Test.php">./tests/Feature</directory>'.PHP_EOL,
-                 '<directory suffix="Test.php">./tests/Feature</directory>'.PHP_EOL.
-                 '            <directory suffix="Test.php">./app/Modules/*/tests/Feature</directory>'.PHP_EOL,
-                 $fileContent
-             ));
-         }
-     }
+        $fileContent = file_get_contents($filePath);
+        if (! Str::contains($fileContent, './app/Modules/*/tests/Feature')) {
+            file_put_contents($filePath, str_replace(
+                '<directory suffix="Test.php">./tests/Feature</directory>'.PHP_EOL,
+                '<directory suffix="Test.php">./tests/Feature</directory>'.PHP_EOL.
+                '            <directory suffix="Test.php">./app/Modules/*/tests/Feature</directory>'.PHP_EOL,
+                $fileContent
+            ));
+        }
+    }
 
-     private function addPermissionDirective()
-     {
-         $serviceProvider = app_path('Providers/ModuleServiceProvider.php');
-         if (File::exists($serviceProvider)) {
-             $providerContent = file_get_contents($serviceProvider);
-             if (Str::contains($providerContent, 'hasRoute')) {
-                 return;
-             }
+    private function addPermissionDirective()
+    {
+        $serviceProvider = app_path('Providers/ModuleServiceProvider.php');
+        if (File::exists($serviceProvider)) {
+            $providerContent = file_get_contents($serviceProvider);
+            if (Str::contains($providerContent, 'hasRoute')) {
+                return;
+            }
 
-             file_put_contents($serviceProvider, str_replace(
-                 "use Illuminate\Support\ServiceProvider;".PHP_EOL,
-                 "use Illuminate\Support\ServiceProvider;".PHP_EOL."use Illuminate\Support\Facades\Blade;".PHP_EOL,
-                 $providerContent
-             ));
+            file_put_contents($serviceProvider, str_replace(
+                "use Illuminate\Support\ServiceProvider;".PHP_EOL,
+                "use Illuminate\Support\ServiceProvider;".PHP_EOL."use Illuminate\Support\Facades\Blade;".PHP_EOL,
+                $providerContent
+            ));
 
-             $providerContent = file_get_contents($serviceProvider);
-             file_put_contents($serviceProvider, str_replace(
-                 '    public function boot()
+            $providerContent = file_get_contents($serviceProvider);
+            file_put_contents($serviceProvider, str_replace(
+                '    public function boot()
     {'.PHP_EOL,
-                 "public function boot()\n\t{\n\t\tBlade::directive('hasRoute', function (\$expression) {\n\t\t\treturn \"<?php if(auth(config('module.admin_guard'))->user()->hasRoute(\$expression)): ?>\";\n\t\t});",
-                 $providerContent
-             ));
-         }
-     }
+                "public function boot()\n\t{\n\t\tBlade::directive('hasRoute', function (\$expression) {\n\t\t\treturn \"<?php if(auth(config('module.admin_guard'))->user()->hasRoute(\$expression)): ?>\";\n\t\t});",
+                $providerContent
+            ));
+        }
+    }
 
     private function EOL(string $routeServiceProvider)
     {
