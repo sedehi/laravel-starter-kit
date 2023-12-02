@@ -48,7 +48,7 @@ class Admin extends Authenticatable
 
     private function loadAllPermissionRoutes()
     {
-        return cache()->remember(config('permission.cache.key').'_routes', config('permission.cache.expiration_time'), function () {
+        return cache()->remember(config('permission.cache.key').'_routes_'.$this->id, config('permission.cache.expiration_time'), function () {
             return $this->loadMissing('roles.permissions.routes')
                 ->roles->flatMap(function ($role) {
                     return $role->permissions->flatMap(function ($role) {
