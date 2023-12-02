@@ -34,6 +34,8 @@ class AdminController extends Controller
         ]);
         $item->assignRole($request->get('roles'));
 
+        $this->clearPermissionCache($item);
+
         return redirect()->route('admin.admins.index')->with('success', trans('admin.saved'));
     }
 
@@ -66,12 +68,17 @@ class AdminController extends Controller
         $item->save();
         $item->syncRoles($request->get('roles'));
 
+        $this->clearPermissionCache($item);
+
         return redirect()->route('admin.admins.index')->with('success', trans('admin.saved'));
     }
 
     public function destroy(AdminRequest $request)
     {
-        Admin::whereIn('id', $request->get('id'))->get()->each->delete();
+        Admin::whereIn('id', $request->get('id'))->get()->each(function ($item) {
+            $this->clearPermissionCache($item);
+            $item->delete();
+        });
 
         return redirect()->route('admin.admins.index', $request->query())->with('success', trans('admin.deleted'));
     }
@@ -79,5 +86,14 @@ class AdminController extends Controller
     protected function roles()
     {
         return Role::where('guard_name',config('module.admin_guard'))->get();
+    }
+
+    /**
+     * @param $item
+     * @return void
+     */
+    public function clearPermissionCache($item): void
+    {
+        cache()->forget(config('permission.cache.key') . '_routes_' . $item->id);
     }
 }
