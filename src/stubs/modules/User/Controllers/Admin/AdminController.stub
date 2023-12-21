@@ -3,6 +3,7 @@
 namespace App\Modules\User\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Role\Models\PermissionRoute;
 use App\Modules\User\Models\Admin;
 use App\Modules\User\Requests\Admin\AdminRequest;
 use Spatie\Permission\Models\Role;
@@ -94,6 +95,6 @@ class AdminController extends Controller
      */
     public function clearPermissionCache($item): void
     {
-        cache()->forget(config('permission.cache.key') . '_routes_' . $item->id);
+        cache()->tags(PermissionRoute::$cacheTags)->forget(config('permission.cache.key') . '_routes_' . $item->id);
     }
 }
