@@ -2,12 +2,10 @@
 
 namespace App\Modules\Role\Models;
 
-use App\Modules\Role\Traits\RefreshPermissionRouteCache;
 use Illuminate\Support\Str;
 
 class Permission extends \Spatie\Permission\Models\Permission
-{
-    use RefreshPermissionRouteCache;
+{;
     public function getModuleNameAttribute()
     {
         return Str::of($this->name)->replace('admin.','')->before('.');
