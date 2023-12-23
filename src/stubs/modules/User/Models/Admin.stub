@@ -3,7 +3,6 @@
 namespace App\Modules\User\Models;
 
 use App\Modules\Role\Models\PermissionRoute;
-use App\Modules\Role\Traits\RefreshPermissionRouteCache;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Sedehi\Filterable\Filterable;
@@ -11,7 +10,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class Admin extends Authenticatable
 {
-    use SoftDeletes,Filterable,HasRoles,RefreshPermissionRouteCache;
+    use SoftDeletes,Filterable,HasRoles;
 
     /**
      * The attributes that are mass assignable.
